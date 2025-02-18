@@ -1,20 +1,33 @@
 import React from 'react';
 import galaxyBG from "../assets/galaxybg.jpg"
+import {EyeIcon, EyeSlashIcon, ArrowLongLeftIcon} from '@heroicons/react/24/solid'
+import { useState } from "react";
 
 
 
 function Register() {
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+  
+
+
     return ( 
     
 
-<main className="container mx-auto flex h-screen items-center justify-center px-4">
+<main className="container mx-auto flex flex-col h-screen items-center justify-center px-4">
+  <div className="absolute top-6 left-6 flex items-center gap-2">
+  <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-[#8E74D0]" />
+  <p className='text-xl font-semibold text-[#8E74D0]'>Home</p>
+  </div>
+
+
   <div className="flex flex-col md:flex-row items-center justify-center lg:px-6 gap-10 lg:py-6  rounded-md border-0 lg:border-[1px] md:border-gray-200 w-full max-w-5xl">
     
     {/* Left Side: Form */}
     <div className="flex flex-col items-center justify-center gap-8 w-full md:w-1/2 min-h-[400px]">
       <header className="text-center">
         <p className="text-2xl font-semibold">Create an account</p>
-        <p className="text-xl font-light">Sign in to join the Pi Day challenge! <span>🥧✨</span></p>
+        <p className="text-xl font-light">Sign up to join the Pi Day challenge! <span>🥧✨</span></p>
       </header>
 
       <section className="w-full">
@@ -58,8 +71,48 @@ function Register() {
             </div>
           </div>
 
-          <input className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]" type="password" placeholder="Create a Password" />
-          <input className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]" type="password" placeholder="Confirm Password" />
+          <div className="w-full flex flex-col gap-4">
+      {/* 🔹 Password Field */}
+      <div className="w-full flex flex-col gap-2">
+        <div className="relative w-full">
+          <input
+            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
+            id="newPass"
+            type={showPassword ? "text" : "password"}
+            placeholder="Create a Password"
+          />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-400"
+            onClick={() => setShowPassword(!showPassword)}
+          >
+            {showPassword ? <EyeIcon className="size-6" /> : <EyeSlashIcon className="size-6" />}
+          </button>
+        </div>
+      </div>
+
+      {/* 🔹 Confirm Password Field */}
+      <div className="w-full flex flex-col gap-2">
+        <div className="relative w-full">
+          <input
+            className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
+            id="cfPass"
+            type={showConfirmPassword ? "text" : "password"}
+            placeholder="Confirm Password"
+          />
+          <button
+            type="button"
+            className="absolute inset-y-0 right-3 flex items-center text-gray-400"
+            onClick={() => setShowConfirmPassword(!showConfirmPassword)}
+          >
+            {showConfirmPassword ? <EyeIcon className="size-6" /> : <EyeSlashIcon className="size-6" />}
+          </button>
+        </div>
+      </div>
+    </div>
+
+       
+   
           <button className="w-1/2 rounded-sm bg-[#8E74D0] py-2 text-white hover:bg-[#886fc7] text-lg font-medium" type="submit">
             Sign Up
           </button>
