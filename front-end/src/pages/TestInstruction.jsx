@@ -10,24 +10,22 @@ function TestInstruction() {
         setPage(page)
     }
     return (
-        <div className="w-full  h-screen flex justify-center items-center">
+        <div className=" w-full md:w-3/4 mx-auto h-screen flex justify-center items-center">
             
            
                
-                    <div className={`w-1/2 bg-[#D9D9D9] h-2/3 p-20 flex flex-col items-center ${page === "code" && 'justify-center'}`}>
+                    <div className={`w-full md:container md:bg-[#D9D9D9] py-8 md:p-12 flex flex-col items ${page === "code" && 'justify-center'}`}>
                         {page === "instruction" && 
-                        <>
-                            <h1 className="font-bold text-3xl mb-10 ">Test Instruction</h1>
-                            <p className="text-lg text-center mb-10">You have X amount of time  for this Pi quiz!
-                            Any acts of cheating is prohibited! (why would you even cheat) 
-                            Your screen will be set to full screen after accepting these requirements. Exiting the full screen will lead you to be warned (3 warnings before your quiz is stopped).
-                            Don't paste anything into the textbox. Any attempts of copy & pasting will stop the quiz.
-                            Press the button below to start the quiz
-                            After you submitted your answer, wait for further instructions from your teacher
-                            Just have fun! (you're just reciting pi numbers, not taking an A-level exam)
-                            </p>
-                            <button className="text-2xl font-medium bg-gray-500 text-white px-5 py-3 rounded-xl cursor-pointer hover:bg-white transition-colors duration-400 ease-in-out hover:text-gray-500 " onClick={() => changePage("code")}>Submit</button>
-                        </> }
+                        <div className="flex flex-col items-center justify-center gap-4">
+                            <h1 className="font-bold text-center text-3xl">Test Instruction</h1>
+                            <p className="text-base md:textlg text-center">You have X amount of time  for this Pi quiz!</p >
+                            <p className="text-base md:textlg text-center " >Any acts of cheating is prohibited and will lead to disqualification </p >
+                            <p className="text-base md:textlg text-center " >Your screen will be set to full screen after accepting these requirements. Exiting the full screen will lead you to be warned (3 warnings before your quiz is stopped).</p >
+                            <p className="text-base md:textlg text-center " >Don't paste anything into the textbox. Any attempts of copy & pasting will lead disqualification</p >
+                            <p className="text-base md:textlg text-center " >A cheating detection system is in placed and so DO NOT CHEAT</p >
+                            <p className="text-base md:textlg text-center" >Finally, just have fun! You're just reciting Pi numbers</p >
+                            <button className="text-2xl font-medium bg-gray-500 text-white px-5 py-3 rounded-xl cursor-pointer hover:bg-white transition-colors duration-400 ease-in-out hover:text-gray-500 " onClick={() => changePage("code")}>Start Test</button>
+                        </div> }
                         {page === "code" && 
                         <>
                             <h1 className="font-bold text-3xl mb-10 ">Enter Code Here</h1>
