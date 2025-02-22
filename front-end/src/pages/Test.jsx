@@ -13,7 +13,7 @@ function Test(){
     const changeMessage = (attempt) => {
         if (attempt === 1){
             setMessage("First and Final Warning! Please Return To the Test Now!")
-        }else if (attempt === 2){
+        }else if (attempt === 10000){
             setMessage("You've been disqualified from the test!")
             document.removeEventListener("keydown", handleKeyPress);
             document.removeEventListener("fullscreenchange", handleEscapeScreen)
@@ -72,10 +72,10 @@ function Test(){
     }, []);
 
     return(
-        <div className="h-screen">
-            {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-md h-screen w-full flex justify-center items-center text-center font-bold text-7xl px-50">{message}</div>)} 
-            <div className="pl-20 w-full">
-                <div className="border-8 flex justify-center items-center rounded-2xl border-black text-5xl w-3/12 p-2 space-x-2 bg-white">
+        <div className="flex flex-col item-center justify-center container mx-auto w-full h-screen gap-20 overflow-y-scroll">
+            {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-md h-screen w-full flex justify-center items-center text-center font-bold text-3xl px-50">{message}</div>)} 
+            <div className="flex w-full justify-center items-center md:justify-start ">
+                <div className="border-6 flex justify-center items-center rounded-lg border-black text-4xl md:text-5xl  p-2 space-x-2 bg-white md:ml-8">
                     <span>0</span>
                     <span>0</span>
                     <span>:</span>
@@ -87,9 +87,14 @@ function Test(){
                 </div>
                 
             </div>
-            <div className="w-full h-8/10 flex flex-col justify-center items-center">
-                <h1 className="font-bold text-3xl mb-10 ">Enter Your Pi Numbers Here. Good Luck!</h1>
-                <textarea className="w-3/5 bg-white p-3 text-2xl mb-5 border-2 border-black rounded-2xl h-1/2" onPaste={preventPaste}></textarea>
+            <div className="w-full flex flex-col justify-center items-center gap-12 py-8">
+                <div className="flex flex-col items-center justify-center gap-2">
+                    <h1 className="font-semibold text-center text-2xl ">Enter Your Pi Numbers Here</h1>
+                    <h1 className="font-semibold text-center text-2xl ">Good Luck!</h1>
+
+                </div>
+
+                <textarea cols={16} rows={6} className=" resize-none bg-white p-3 text-2xl border-2 border-black rounded-2xl md:w-3/4" onPaste={preventPaste}></textarea>
 
             </div>
             
