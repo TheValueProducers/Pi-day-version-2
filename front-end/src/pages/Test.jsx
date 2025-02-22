@@ -12,8 +12,8 @@ function Test(){
     
     const changeMessage = (attempt) => {
         if (attempt === 1){
-            setMessage("First and Final Warning! Please Return To the Test Now!")
-        }else if (attempt === 10000){
+            setMessage(<p>First and Final Warning! Please Return To the Test Now!</p>)
+        }else if (attempt === 2){
             setMessage("You've been disqualified from the test!")
             document.removeEventListener("keydown", handleKeyPress);
             document.removeEventListener("fullscreenchange", handleEscapeScreen)
@@ -72,8 +72,9 @@ function Test(){
     }, []);
 
     return(
-        <div className="flex flex-col item-center justify-center container mx-auto w-full h-screen gap-20">
-            {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-md h-screen w-full flex justify-center items-center text-center font-bold text-3xl px-50">{message}</div>)} 
+        <div className="flex flex-col item-center justify-center w-full h-screen">
+            {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-md h-screen w-full flex justify-center items-center text-center font-bold text-3xl ">{message}</div>)} 
+            <div className="flex flex-col item-center justify-center container mx-auto w-full h-screen gap-20">
             <div className="flex w-full justify-center items-center md:justify-start ">
                 <div className="border-6 flex justify-center items-center rounded-lg border-black text-4xl md:text-5xl  p-2 space-x-2 bg-white md:ml-8">
                     <span>0</span>
@@ -97,6 +98,9 @@ function Test(){
                 <textarea cols={16} rows={6} className=" resize-none bg-white p-3 text-2xl border-2 border-black rounded-2xl md:w-3/4" onPaste={preventPaste}></textarea>
 
             </div>
+
+            </div>
+
             
         </div>
     )
