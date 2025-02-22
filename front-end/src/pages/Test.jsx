@@ -72,7 +72,7 @@ function Test(){
     }, []);
 
     return(
-        <div className="flex flex-col item-center justify-center container mx-auto w-full h-screen gap-20 overflow-y-scroll">
+        <div className="flex flex-col item-center justify-center container mx-auto w-full h-screen gap-20">
             {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-md h-screen w-full flex justify-center items-center text-center font-bold text-3xl px-50">{message}</div>)} 
             <div className="flex w-full justify-center items-center md:justify-start ">
                 <div className="border-6 flex justify-center items-center rounded-lg border-black text-4xl md:text-5xl  p-2 space-x-2 bg-white md:ml-8">
