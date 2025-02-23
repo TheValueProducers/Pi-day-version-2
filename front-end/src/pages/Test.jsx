@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import StudentNav from "../components/StudentNav";
 import {Link, useNavigate} from "react-router-dom"
 
 
@@ -72,7 +73,9 @@ function Test(){
     }, []);
 
     return(
+        
         <div className="flex flex-col item-center justify-center w-full h-screen">
+            
             {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-md h-screen w-full flex justify-center items-center text-center font-bold text-3xl ">{message}</div>)} 
             <div className="flex flex-col item-center justify-center container mx-auto w-full h-screen gap-20">
             <div className="flex w-full justify-center items-center md:justify-start ">

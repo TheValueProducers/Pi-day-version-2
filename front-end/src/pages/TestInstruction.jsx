@@ -13,7 +13,7 @@ function TestInstruction() {
     return (
         <div className=" w-full flex flex-col">
 
-            <StudentNav></StudentNav>
+            <StudentNav />
 
             <div className="w-full md:w-3/4 mx-auto h-screen  flex flex-col items-center justify-center">
                 <div className={`w-full md:container lg:max-w-[900px] md:bg-[#D9D9D9] py-8 md:p-12 flex flex-col items ${page === "code" && 'justify-center'}`}>
