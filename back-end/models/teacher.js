@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
     admin_id: {
       type: DataTypes.UUID
     },
-    hashed_password: DataTypes.TEXT,
+    password: DataTypes.TEXT,
     full_name: DataTypes.TEXT,
     email: {
       type: DataTypes.TEXT,

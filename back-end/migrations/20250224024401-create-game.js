@@ -11,6 +11,15 @@ module.exports = {
         allowNull: false,
         unique: true
       },
+      duration: {
+        type: Sequelize.INTEGER,
+        allowNull: false
+
+      },
+      status: {
+        type: Sequelize.ENUM("in_game", "finished"),
+        allowNull: false
+      },
       code: {
         type: Sequelize.STRING(10),
         allowNull: false,

@@ -9,6 +9,15 @@ module.exports = (sequelize, DataTypes) => {
       allowNull: false,
       unique: true
     },
+    duration: {
+      type: DataTypes.INTEGER,
+      allowNull: false
+    },
+    status: {
+      type: DataTypes.ENUM("in_game", "finished"),
+      allowNull: false
+    },
+    
     code: {
       type: DataTypes.STRING(10),
       allowNull: false,

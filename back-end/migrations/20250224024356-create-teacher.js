@@ -21,7 +21,7 @@ module.exports = {
         onDelete: 'SET NULL',
         onUpdate: 'CASCADE'
       },
-      hashed_password: Sequelize.TEXT,
+      password: Sequelize.TEXT,
       full_name: Sequelize.TEXT,
       email: Sequelize.TEXT,
       date_of_birth: Sequelize.DATE,

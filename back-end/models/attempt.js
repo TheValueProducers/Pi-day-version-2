@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.STRING(6)
     },
     answer: DataTypes.TEXT,
-    correct_answer: DataTypes.INTEGER,
-    rank: DataTypes.INTEGER
+    
   });
 
   Attempt.associate = (models) => {

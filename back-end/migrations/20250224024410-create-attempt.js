@@ -26,8 +26,7 @@ module.exports = {
         onUpdate: 'CASCADE'
       },
       answer: Sequelize.TEXT,
-      correct_answer: Sequelize.INTEGER,
-      rank: Sequelize.INTEGER,
+      
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
     });
