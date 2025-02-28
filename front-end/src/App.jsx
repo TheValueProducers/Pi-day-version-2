@@ -7,9 +7,11 @@ import ManageAccount from "./pages/ManageAccount";
 import TestInstruction from "./pages/TestInstruction";
 import UserAuth from './pages/UserAuth';
 import AdminAuth from "./pages/AdminAuth"
+import NavBarTester from "./pages/NavBarTester"
 
 function App() {
   return (
+
     <Router>
       <Routes>
         <Route exact path = "/student/register" element = {<Register/>} />
