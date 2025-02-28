@@ -17,6 +17,7 @@ function AdminAuth() {
                 <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-[#8E74D0]" />
                 <p className='text-xl font-semibold text-[#8E74D0]'>Home</p>
                 </div>
+                {/* Link this button back to Home.jsx when click */}
 
 
                 <div className=" w-3/4 md:w-2/5 flex flex-col md:flex-row items-center justify-center gap-10  rounded-md border-0 lg:border-[1px] md:border-gray-200">

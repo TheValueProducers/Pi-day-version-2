@@ -15,7 +15,8 @@ function StudentData() {
             <div className='min-h-screen mx-auto  relative container flex flex-col items-center justify-center py-16'>
                 <div className="absolute top-3 left-3 md:top-6 md:left-6 flex items-center gap-2">
                         <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-white" />
-                        <p className='text-base md:text-xl font-semibold text-white'>Return</p>
+                    <p className='text-base md:text-xl font-semibold text-white'>Return</p>
+                    {/* Link this button back to TestTable.jsx when click */}
                 </div>
 
                 <div className='flex min-w-full md:w-3/4 item-center justify-center'> 

@@ -25,6 +25,7 @@ function Register() {
         <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-[#8E74D0]" />
         <p className='text-lg md:text-xl font-semibold text-[#8E74D0]'>Home</p>
         </div>
+        {/* Link this button back to Home.jsx when click */}
 
           {/* Register Form */}
         <div className="flex flex-col md:flex-row items-center justify-center  lg:px-6 gap-10 lg:py-6  rounded-md border-0 lg:border-[1px] md:border-gray-200 w-3/4">
