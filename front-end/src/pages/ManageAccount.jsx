@@ -1,17 +1,30 @@
 import {useState, useEffect} from "react"
 import {Link} from "react-router-dom"
 import AdminNav from "../components/AdminNav";
+import axios from "axios";
 const ManageAccount = () => {
-    const [users, setUsers] = useState([
-        { id: 1, username: "john_doe", password: "123456", realName: "John Doe", email: "john@example.com", role: "Admin" },
-        { id: 2, username: "jane_smith", password: "abcdef", realName: "Jane Smith", email: "jane@example.com", role: "User" },
-        { id: 3, username: "mark_wilson", password: "qwerty", realName: "Mark Wilson", email: "mark@example.com", role: "Moderator" },
+    const [users, setUsers] = useState([]);
 
-     
-    ]);
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await axios.get("http://localhost:4000/api/v2/admin/display-account");
+                
+                if (response?.data && response.data.teachers.length > 0) {
+                    setUsers(response.data.teachers);
+                }
+            } catch (error) {
+                console.error("Error fetching users:", error);
+            }
+        };
+
+        fetchData();
+    }, []);
 
     
     return(
+        <>
+        <AdminNav />
         <div className="bg-[#574979]">
 
 
@@ -34,14 +47,15 @@ const ManageAccount = () => {
                                         <th className="py-4 font-large text-xl">Role</th>
                                     </thead>
                                     <tbody className=" overflow-y-auto">
-                                        {users.map(user => {
+                                        {users.map((user, index) => {
                                             return (<tr className="odd:bg-white bg-gray-300">
-                                                <td className="py-4 text-xl text-center">{user.id}</td>
+                                                <td className="py-4 text-xl text-center">{index+1}</td>
+                                                
                                                 <td className="py-4 text-xl text-center">{user.username}</td>
                                                 <td className="py-4 text-xl text-center">{user.password}</td>
-                                                <td className="py-4 text-xl text-center">{user.realName}</td>
+                                                <td className="py-4 text-xl text-center">{user.full_name}</td>
                                                 <td className="py-4 text-xl text-center">{user.email}</td>
-                                                <td className="py-4 text-xl text-center">{user.role}</td>
+                                                <td className="py-4 text-xl text-center">Teacher</td>
                                             </tr>)
                                         })}
                                 
@@ -54,6 +68,7 @@ const ManageAccount = () => {
                         </div>
             </div>
         </div>
+        </>
 
        
     )

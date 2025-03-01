@@ -1,13 +1,40 @@
 import React from 'react';
 import {EyeIcon, EyeSlashIcon, ArrowLongLeftIcon} from '@heroicons/react/24/solid'
 import { useState } from "react";
+import AdminNav from "../components/AdminNav"
+import axios from "axios";
 
 
 
 function AdminAuth() {
   const [showPassword, setShowPassword] = useState(false);
+  const [username, setUsername] = useState("")
+  const [password, setPassword] = useState("")
+
+  const logIn = async (e) => {
+    e.preventDefault(); // Prevent page refresh
+
+    try {
+      const response = await axios.post("http://localhost:4000/api/v2/admin/login", {
+        username,
+        password
+      });
+
+      if (response.data.token) {
+        localStorage.setItem("token", response.data.token); // Store JWT
+        console.log("Login successful!", response.data);
+        window.location.href = "/admin/home"; // Redirect after login
+      }
+    } catch (error) {
+      
+        alert("Wrong password, please try again");
+      
+    }
+  };
   
     return ( 
+        <>
+        <AdminNav />
         <main className="container mx-auto flex flex-col h-screen items-center justify-center px-4">
         <div className="absolute top-6 left-6 flex items-center gap-2">
         <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-[#8E74D0]" />
@@ -26,13 +53,14 @@ function AdminAuth() {
 
                 <section className="w-full">
                     <form className="flex flex-col items-center gap-4">
-                    <input className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]" type="text" placeholder="Enter Your Username" />
+                    <input onChange={(e) => setUsername(e.target.value)} className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]" type="text" placeholder="Enter Your Username" />
 
                     {/* 🔹 Password Field */}
                     <div className="w-full flex flex-col gap-4">
                         <div className="w-full flex flex-col gap-2">
                             <div className="relative w-full">
                             <input
+                                onChange={(e) => setPassword(e.target.value)}
                                 className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
                                 id="newPass"
                                 type={showPassword ? "text" : "password"}
@@ -49,14 +77,15 @@ function AdminAuth() {
                         </div>
                     </div>
                 
-                    <button className="w-1/2 rounded-sm bg-[#8E74D0] py-2 text-white hover:bg-[#886fc7] text-lg font-medium" type="submit">
+                    <button onClick={logIn} className="w-1/2 rounded-sm bg-[#8E74D0] py-2 text-white hover:bg-[#886fc7] text-lg font-medium" type="submit">
                         Sign In
                     </button>
                     </form>
                 </section>
             </div>
         </div>
-        </main>
+        </main></>
+        
      );
 
 }

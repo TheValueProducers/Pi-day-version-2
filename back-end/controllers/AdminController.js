@@ -9,22 +9,27 @@ const JWT_SECRET = process.env.JWT_SECRET
 
 exports.adminLogin = async (req,res) => {
     try{
+        
         const {username, password} = req.body;
-        const admin = await Admin.findOne({where: {username}})
+        console.log(username, password);
+        const admin = await Admin.findOne({ where: { username } });
+        console.log("Finding Identity");
+        console.log(admin);
 
         if (!admin){
-            res.status(400).json({"message": "invalid credentials"})
+            return res.status(400).json({"message": "invalid credentials"})
         }
-        const password_matched = await bcrypt.compare(password, admin.password)
+        const password_matched = await bcrypt.compare(password, admin.hashed_password)
         if (!password_matched){
-            res.status(400).json({"message": "wrong password"})
+            return res.status(400).json({"message": "wrong password"})
         }
-        const token  = jwt.sign({admin_id: admin.admin_id, role: "admin"}, JWT_SECRET, {expiresIn: '2h'})
-        res.status(200).json({message: "login successful", token})
+        console.log("Correct identiy");
+        const token  = jwt.sign({admin_id: admin.admin_id, role: "admin"}, JWT_SECRET)
+        return res.status(200).json({message: "login successful", token})
         
         
     }catch(err){
-        res.status(500).json({"message": "error registration"})
+        return res.status(500).json({"message": "error registration"})
     }
 }
 
@@ -32,12 +37,12 @@ exports.adminLogin = async (req,res) => {
 
 exports.createAccount = async (req,res) => {
     try{
-        const {admin_id, username, password, full_name, email, date_of_birth} = req.body;
-        const teacher = await Teacher.create({admin_id, username, password, full_name, email, date_of_birth})
+        const {admin_id, username, password, full_name, email} = req.body;
+        const teacher = await Teacher.create({admin_id, username, password, full_name, email})
         if(!teacher){
             return res.status(500).json({"message": "error creating account"})
         }
-        return res.status(200).json({"message": "successfully created accounts"})        
+        return res.status(201).json({"message": "successfully created accounts"})        
 
     }catch(err){
         console.log(err);
@@ -47,10 +52,13 @@ exports.createAccount = async (req,res) => {
 exports.displayAccount = async (req,res) => {
     try{
         const teachers = await Teacher.findAll()
-        if(!teacher){
+        console.log("Im here");
+        if(!teachers){
+            
+            
             return res.status(500).json({"message": "accounts not available"})
         }
-        return res.status(200).json({"message": "successfully searched accounts", teachers})        
+        return res.status(201).json({"message": "successfully searched accounts", teachers})        
 
     }catch(err){
         console.log(err);

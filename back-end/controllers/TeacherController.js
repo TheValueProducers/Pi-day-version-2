@@ -1,6 +1,6 @@
 require("dotenv").config()
 const {Teacher, Game, Attempt} = require('../models');
-const bcrypt = require('bcrypt');
+
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET;
 const processPiResponses = require("../utils/piAnswerRanking")
@@ -16,11 +16,11 @@ exports.teacherLogin = async (req,res) => {
         if (!teacher){
             res.status(400).json({"message": "invalid credentials"})
         }
-        const password_matched = await bcrypt.compare(password, teacher.password)
+        const password_matched = password === teacher.password;
         if (!password_matched){
             res.status(400).json({"message": "wrong password"})
         }
-        const token  = jwt.sign({teacher_id: teacher.teacher_id, role: "teacher"}, JWT_SECRET, {expiresIn: '2h'})
+        const token  = jwt.sign({teacher_id: teacher.teacher_id, role: "teacher"}, JWT_SECRET)
         res.status(200).json({message: "login successful", token})
         
         
@@ -82,5 +82,17 @@ exports.showLeaderboard = async (req, res) => {
         res.status(500).json({ error: "Internal server error" });
     }
 };
+
+exports.showGames = async (req,res) => {
+    try{
+        const {teacher_id} = req.body
+        const games = await Game.findAll({where: {teacher_id} })
+        res.status(200).json({"message": "successfully find games"})
+    }catch(err){
+        console.log(err);
+    }
+
+
+}
 
 

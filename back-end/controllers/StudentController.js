@@ -30,7 +30,7 @@ exports.studentLogin = async (req,res) => {
         if (!password_matched){
             res.status(400).json({"message": "wrong password"})
         }
-        const token  = jwt.sign({student_id: student.student_id, role: "student"}, JWT_SECRET, {expiresIn: '2h'})
+        const token  = jwt.sign({student_id: student.student_id, role: "student"}, JWT_SECRET)
         res.status(200).json({message: "login successful", token})
         
         

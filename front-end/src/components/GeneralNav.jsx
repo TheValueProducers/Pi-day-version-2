@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
 import { Bars3Icon, QuestionMarkCircleIcon, ChevronDownIcon} from '@heroicons/react/24/solid';
+import {Link} from "react-router-dom"
 //import react route & routes
-//change all <a> tags to <Link> 
+//change all <Link > tags to <Link> 
 
 function Header() {
   const [menuOption, setMenuOption] = useState(false);
@@ -53,21 +54,21 @@ function Header() {
       {/* Mobile Menu Options */}
         {menuOption &&
             <div id="mobile-options" className="w-full h-auto bg-[#8E74D0] absolute top-full mt-2 flex flex-col text-sm font-semibold">
-            <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 flex item-center justify-center relative" onClick={ openDropDownMenu }> Home <span> <ChevronDownIcon className='size-4 absolute mt-2 ml-2  '/></span></a>
+            <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 flex item-center justify-center relative" onClick={ openDropDownMenu }> Home <span> <ChevronDownIcon className='size-4 absolute mt-2 ml-2  '/></span></Link >
             
             {mobileMenuDropDown && 
             <div className='flex flex-col justify-center'>
-                <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> About Pi Day</a>
-                <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Day Competition</a>
-                <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Fun Facts</a>
-                <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Our Team</a>
+                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> About Pi Day</Link >
+                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Day Competition</Link >
+                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Fun Facts</Link >
+                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Our Team</Link >
             </div>
 
             }
 
-            <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Pratice</a>
-            <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</a>
-            <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Sign Up</a>
+            <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Pratice</Link >
+            <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</Link >
+            <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Sign Up</Link >
             
 
             
@@ -93,9 +94,9 @@ function Header() {
       onMouseLeave={closeDesktopDropDownMenu} 
     >
       {/* Home Link */}
-      <a className="text-black px-6 hover:text-[#886fc7] py-1 font-medium text-lg xl:text-xl">
+      <Link  className="text-black px-6 hover:text-[#886fc7] py-1 font-medium text-lg xl:text-xl">
         Home
-      </a>
+      </Link >
 
       {/* Dropdown Menu */}
       {desktopMenuDropDown && (
@@ -104,30 +105,32 @@ function Header() {
           onMouseEnter={openDesktopDropDownMenu} // Keeps dropdown open
           onMouseLeave={closeDesktopDropDownMenu} // Delayed close
         >
-          <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
             About Pi Day
-          </a>
-          <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          </Link >
+          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
             Pi Day Competition
-          </a>
-          <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          </Link >
+          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
             Pi Fun Facts
-          </a>
-          <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          </Link >
+          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
             Our Team
-          </a>
+          </Link >
         </div>
       )}
     </div>
         
-            <a className=" text-black  hover:text-[#886fc7] py-1 font-medium  px-6   text-lg  xl:text-xl">Practice</a>
-            <a className=" text-black  hover:text-[#886fc7] py-1 font-medium px-6  text-lg  xl:text-xl">Contact</a>
+            <Link  className=" text-black  hover:text-[#886fc7] py-1 font-medium  px-6   text-lg  xl:text-xl">Practice</Link >
+            <Link  className=" text-black  hover:text-[#886fc7] py-1 font-medium px-6  text-lg  xl:text-xl">Contact</Link >
             </div>
 
             {/* Right Section */}
             <div className="w-1/3 flex items-center gap-8 justify-end mr-2 ">
 
-            <a className=" bg-[#8E74D0] hover:bg-[#886fc7] text-white rounded-lg py-2 px-5 text-lg font-medium xl:text-xl">Get Started</a>
+            <Link to = "/register"  className=" bg-[#8E74D0] hover:bg-[#886fc7] text-white rounded-lg py-2 px-5 text-lg font-medium xl:text-xl">Get Started</Link >
+
+
             </div>
         </div>
 
