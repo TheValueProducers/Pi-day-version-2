@@ -1,8 +1,10 @@
 import React, {useState} from 'react'
 import TeacherNav from '../components/TeacherNav'
-import {ArrowLongLeftIcon} from '@heroicons/react/24/solid'
+import { ArrowLongLeftIcon } from '@heroicons/react/24/solid'
 import {useLocation, Link} from "react-router-dom"
 import AdminNav from '../components/AdminNav'
+
+import Footer from '../components/Footer';
 
 
 function StudentData() {
@@ -16,13 +18,15 @@ function StudentData() {
         <div className='bg-[#574979] w-full '>
              {userLevel === "teacher"? <TeacherNav />: <AdminNav /> }
 
-            <div className="absolute top-20 left-6 md:top-22 md:left-12 flex items-center gap-2">
-                <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-white" />
-                <Link to = {previousLocation} className='text-xl font-semibold text-white'>Return</Link>
-            </div>
+            <div className='min-h-screen mx-auto  relative container flex flex-col items-center justify-center py-16'>
+                <div className="absolute top-3 left-3 md:top-6 md:left-6 flex items-center gap-2">
+                        <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-white" />
+                    <Link to = {previousLocation} className='text-base md:text-xl font-semibold text-white'>Return</Link>
+                    {/* Link this button back to TestTable.jsx when click */}
+                </div>
 
-            <div className='h-screen flex flex-col items-center justify-center'>
-                <div className='flex container item-center justify-center'>         
+                <div className='flex min-w-full md:w-3/4 item-center justify-center'> 
+                    
                    <div className="w-3/4 flex flex-col items-center justify-center gap-8 bg-white rounded-lg py-8">
                  
                         <h1 className='text-lg md:text-2xl font-medium text-center'>{`${username}'s Response`}</h1>
@@ -70,9 +74,11 @@ function StudentData() {
 
 
 
-                    </div>
-
                 </div>
+
+            </div>
+
+            <Footer/>
 
         </div>
 

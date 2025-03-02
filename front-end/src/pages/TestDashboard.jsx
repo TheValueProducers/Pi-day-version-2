@@ -1,7 +1,7 @@
 import React from 'react'
 import TeacherNav from '../components/TeacherNav'
 import AdminNav from '../components/AdminNav';
-import {ArrowLongLeftIcon} from '@heroicons/react/24/solid'
+import Footer from '../components/Footer';
 import { useLocation, Link } from 'react-router-dom';
 
 function TestDashboard() {
@@ -54,8 +54,7 @@ function TestDashboard() {
         <div className='bg-[#574979] w-full '>
             {userLevel === "teacher"? <TeacherNav />: <AdminNav /> }
             
-
-            <div className='h-screen flex flex-col items-center justify-center'>
+            <div className='min-h-screen flex flex-col items-center justify-center py-10'>
                 <div className='flex container item-center justify-center'>         
                    <div className="w-full max-w-4/5 lg:max-w-2/3 flex flex-col items-center justify-center gap-8 md:py-8 px-6 md:bg-white md:shadow-lg rounded-lg">
                         {/* Title */}
@@ -83,9 +82,7 @@ function TestDashboard() {
                 </div>
 
             </div>
-
-      
-        
+            <Footer/>
         </div>
      );
 }

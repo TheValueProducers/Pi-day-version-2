@@ -39,13 +39,14 @@ function Header() {
 
 
   return (
-    <nav className=" w-full flex items-center justify-center sticky max-h-16 md:container md:mx-auto">
-    
-        {/* Mobile Menu */}
-      <div className='w-full flex items-center justify-between md:hidden'>
-        <div className="logo ml-4 py-4">
-            <QuestionMarkCircleIcon className='size-10'/>
-        </div>
+    <div className='w-full bg-white shadow-md'>
+      <nav className=" w-full flex items-center justify-center sticky max-h-18 md:container md:mx-auto">
+      
+          {/* Mobile Menu */}
+        <div className='w-full flex items-center justify-between md:hidden'>
+          <div className="logo ml-4 py-4">
+              <QuestionMarkCircleIcon className='size-10'/>
+          </div>
 
         {/* Mobile Menu Button */}
         <div className='flex items-center justify-end mr-4 py-4'>
@@ -64,25 +65,26 @@ function Header() {
                 <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Our Team</Link >
             </div>
 
-            }
+              }
 
             <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Pratice</Link >
             <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</Link >
             <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Sign Up</Link >
             
 
-            
-            </div>
-        }
-      </div>
-
-
-    <div className='flex  w-full items-center justify-between  '>
-
-        <div className="hidden md:block logo ml-2 py-4">
-            <QuestionMarkCircleIcon className='size-10'/>
+              
+              </div>
+          }
         </div>
-    
+
+
+          {/* Desktop Menu */}
+      <div className='flex  w-full items-center justify-between  '>
+
+          <div className="hidden md:block logo ml-2 py-4">
+              <QuestionMarkCircleIcon className='size-10'/>
+          </div>
+      
 
         {/* Desktop Menu */}
         <div className="w-5/6 hidden md:flex justify-around items-center">
@@ -125,8 +127,8 @@ function Header() {
             <Link  className=" text-black  hover:text-[#886fc7] py-1 font-medium px-6  text-lg  xl:text-xl">Contact</Link >
             </div>
 
-            {/* Right Section */}
-            <div className="w-1/3 flex items-center gap-8 justify-end mr-2 ">
+              {/* Right Section */}
+              <div className="w-1/3 flex items-center gap-8 justify-end mr-2 ">
 
             <Link to = "/register"  className=" bg-[#8E74D0] hover:bg-[#886fc7] text-white rounded-lg py-2 px-5 text-lg font-medium xl:text-xl">Get Started</Link >
 
@@ -136,9 +138,11 @@ function Header() {
 
 
 
+      </div>
+
+      </nav>
     </div>
 
-    </nav>
 
   );
 }

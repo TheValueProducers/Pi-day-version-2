@@ -1,6 +1,6 @@
 import React from 'react'
 import {EyeIcon, EyeSlashIcon, ArrowLongLeftIcon} from '@heroicons/react/24/solid'
-
+import Footer from '../components/Footer'
 
 
 import GeneralNav from '../components/GeneralNav'
@@ -13,12 +13,12 @@ function Contact() {
         <div className='w-full'>
             <GeneralNav/>
 
-            <main className="container mx-auto flex flex-col gap-32 h-screen items-center justify-center ">
+            <main className="container mx-auto flex flex-col md:gap-8 min-h-screen items-center justify-center py-16">
                 {/* Title */}
                 <div className='w-full flex flex-col items-center gap-4'>
                     <p className='font-semibold text-4xl lg:text-5xl'>Contact Us!</p>
-                    <p className='text-center text-lg font-extralight text-wrap px-28'>We’d love to hear from you! If you have any feedback, questions, or suggestions about the Pi Day website, feel free to reach out.</p>
-                    <p className='text-center  text-lg  font-medium text-wrap px-28'> Your input helps us improve the experience for everyone</p>
+                    <p className='text-center text-lg font-extralight text-wrap px-10 md:px-28'>We’d love to hear from you! If you have any feedback, questions, or suggestions about the Pi Day website, feel free to reach out.</p>
+                    <p className='text-center  text-lg  font-medium text-wrap  px-10 md:px-28'> Your input helps us improve the experience for everyone</p>
                 </div>
 
                 <div className=" w-3/4 lg:w-1/2 flex flex-col md:flex-row items-center justify-center gap-18 rounded-md border-0 lg:border-[1px] md:border-gray-200 bg-white py-8 md:shadow-lg">
@@ -46,6 +46,8 @@ function Contact() {
                    
                 </div>
             </main>
+
+            <Footer></Footer>
         </div>
      
      );

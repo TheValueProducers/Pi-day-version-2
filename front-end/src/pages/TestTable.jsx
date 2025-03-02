@@ -1,7 +1,7 @@
 import React, {useState} from 'react'
 import TeacherNav from '../components/TeacherNav'
 import AdminNav from '../components/AdminNav';
-import {ArrowLongLeftIcon} from '@heroicons/react/24/solid'
+import Footer from '../components/Footer';
 import { useLocation, Link } from 'react-router-dom';
 
 
@@ -68,7 +68,9 @@ function TestTable() {
 
                     </div>
 
-                </div>
+            </div>
+
+            <Footer/>
 
         </div>
 

@@ -1,13 +1,14 @@
 import React from 'react'
 import TeacherNav from '../components/TeacherNav'
+import Footer from '../components/Footer';
 
 function CreateTest() {
     return ( 
-        <div className='bg-[#574979] w-full h-screen '>
+        <div className='w-full bg-[#574979]'>
             <TeacherNav />
-            <div className='flex flex-col h-4/5 items-center justify-center'>
+            <div className='flex flex-col min-h-screen items-center justify-center'>
                 <div className='flex container item-center justify-center'>         
-                   <div className="w-full max-w-lg flex flex-col items-center justify-center gap-8 py-12 px-6  md:bg-white md:shadow-lg rounded-lg">
+                   <div className="w-full max-w-lg flex flex-col items-center justify-center gap-8  md:py-12 px-6  md:bg-white md:shadow-lg rounded-lg">
                         {/* Title */}
                         <h2 className="font-semibold text-center text-3xl text-white md:text-gray-800">Create Test</h2>
 
@@ -70,9 +71,7 @@ function CreateTest() {
                 </div>
 
             </div>
-
-      
-        
+            <Footer/>
         </div>
      );
 }
