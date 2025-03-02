@@ -15,8 +15,8 @@ const CreateAccount = () => {
         e.preventDefault(); // Prevent form submission reload
 
         // ✅ Input Validation
-        if (username.length <= 6) {
-            alert("Username length must be longer than 6 characters.");
+        if (username.length <= 6 || username.length > 12) {
+            alert("Username length must be longer than 6 characters and less than 12 characters");
             return;
         } else if (password.length <= 6) {
             alert("Password length must be longer than 6 characters.");
