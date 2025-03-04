@@ -1,31 +1,37 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import TeacherNav from '../components/TeacherNav'
 import AdminNav from '../components/AdminNav';
 import Footer from '../components/Footer';
 import { useLocation, Link } from 'react-router-dom';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
+import axios from 'axios';
 
 
 function TestTable() {
     const location = useLocation();
     const userLevel = location.pathname.split("/")[1]
     const className = location.pathname.split("/")[3]
+    const token = localStorage.getItem("token")
 
-    const [users, setUsers] = useState([
-        { rank: 1, name: "skibidiToilet", piNumCorrect: "12" },
-        { rank: 2, name: "skibidi", piNumCorrect: "8" },
-        { rank: 3, name: "hskibidi", piNumCorrect: "7" },
-        { rank: 4, name: "skibidi", piNumCorrect: "2" },
-        { rank: 5, name: "skibidi", piNumCorrect: "12" },
-        { rank: 6, name: "skibidi", piNumCorrect: "8" },
-        { rank: 7, name: "skibidi", piNumCorrect: "7" },
-        
-        
-        
-
-
-     
-       ]);
+    const [users, setUsers] = useState([]);
+    useEffect(() => {
+        const fetchTable = async () => {
+          try {
+            const response = await axios.get("http://localhost:4000/api/v2/admin/show-leaderboard", {
+              headers: {
+                Authorization: `Bearer ${token}`, // ✅ Send token in headers
+            }
+            });
+            if (response.data && response.data.leaderboard.length > 0) {
+              setUsers(response.data.leaderboard); // Ensure you're setting the actual data
+            }
+          } catch (error) {
+            alert("Error fetching games:", error);
+          }
+        };
+    
+        fetchTable(); // Call the function inside useEffect
+      }, []);
     
     return ( 
         <div className='bg-[#574979] w-full '>
@@ -50,7 +56,7 @@ function TestTable() {
                                         <th className="py-4 font-large text-center  text-xs  sm:text-lg md:text-xl">Pi Num Guessed Correct</th>
                                     </thead>
                                     <tbody className=" overflow-y-auto">
-                                        {users.map(user => {
+                                        {users.length > 0 && users.map(user => {
                                             return (<tr className="odd:bg-white bg-gray-300">
                                                 <td className="py-4 text-xs  sm:text-sm md:text-xl text-center">{user.rank}</td>
                                                 <td className="py-4 text-xs  sm:text-sm md:text-xl text-center"><Link to = {`/${userLevel}/leaderboard/${className}/${user.name}`}>{user.name}</Link></td>

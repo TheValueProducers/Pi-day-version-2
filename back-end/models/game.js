@@ -1,37 +1,41 @@
 module.exports = (sequelize, DataTypes) => {
-  const Game = sequelize.define('Game', {
+  const Game = sequelize.define("Game", {
     game_id: {
-      type: DataTypes.STRING(6),
-      primaryKey: true
+      type: DataTypes.UUID,
+      primaryKey: true,
+      defaultValue: DataTypes.UUIDV4,
     },
     name: {
       type: DataTypes.TEXT,
       allowNull: false,
-      unique: true
+      unique: true,
     },
     duration: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
     },
     status: {
       type: DataTypes.ENUM("in_game", "finished"),
-      allowNull: false
+      allowNull: false,
     },
-    
     code: {
       type: DataTypes.STRING(10),
       allowNull: false,
-      unique: true
+      unique: true,
     },
     teacher_id: {
-      type: DataTypes.UUID
-    }
+      type: DataTypes.UUID,
+    },
   });
 
   Game.associate = (models) => {
-    Game.belongsTo(models.Teacher, { foreignKey: 'teacher_id', onDelete: 'CASCADE' });
-    Game.hasMany(models.Student, { foreignKey: 'game_id', onDelete: 'CASCADE' });
-    Game.hasMany(models.Attempt, { foreignKey: 'game_id', onDelete: 'CASCADE' });
+    
+
+    // ✅ One-to-Many: A game belongs to a teacher
+    Game.belongsTo(models.Teacher, { foreignKey: "teacher_id", onDelete: "CASCADE" });
+
+    // ✅ One-to-Many: A game has multiple attempts
+    Game.hasMany(models.Attempt, { foreignKey: "game_id", onDelete: "CASCADE" });
   };
 
   return Game;

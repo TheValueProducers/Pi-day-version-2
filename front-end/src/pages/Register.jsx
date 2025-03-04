@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import galaxyBG from "../assets/galaxybg.jpg";
 import Footer from "../components/Footer";
 import GeneralNav from "../components/GeneralNav";
+import axios from "axios";
 import {
   EyeIcon,
   EyeSlashIcon,
@@ -10,6 +11,60 @@ import {
 } from "@heroicons/react/24/solid";
 
 function Register() {
+  const [formData, setFormData] = useState({
+    username: "",
+    email: "",
+    fullName: "",
+    yearGroup: '7',
+    classGroup: "B",
+    password: "",
+    confirmPassword: "",
+  });
+
+  const handleChange = (e) => {
+    const {name, value} = e.target;
+    setFormData(prevValue => ({...prevValue, [name]: value}))
+    
+  }
+  const handleSubmit = async (event) => {
+    event.preventDefault(); // Prevent default form submission
+  
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    
+    if (formData.username.length <= 6 || formData.username.length > 12) {
+        alert("Username length must be between 7 and 12 characters.");
+        return;
+    } 
+    if (formData.password.length <= 6) {
+        alert("Password length must be longer than 6 characters.");
+        return;
+    }
+    if (formData.fullName.trim() === "") {
+        alert("Full name cannot be empty.");
+        return;
+    } 
+    if (!emailRegex.test(formData.email)) {
+        alert("Please enter a valid email address.");
+        return;
+    }
+    if (formData.password !== formData.confirmPassword) {
+        alert("Passwords must match!");
+        return;
+    }
+  
+    try {
+        const response = await axios.post("http://localhost:4000/api/v2/student/register", formData);
+        if (response.status === 201) {
+            alert("Account created successfully!");
+            window.location.href = "/sign-in"
+        }
+    } catch (err) {
+        alert(err.response?.data?.message || "Registration failed. Please try again.");
+    }
+  }
+
+
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
@@ -39,21 +94,30 @@ function Register() {
             </header>
 
             <section className="w-full">
-              <form className="flex flex-col items-center gap-4">
+              <form className="flex flex-col items-center gap-4" onSubmit={handleSubmit}>
                 {/* Input Fields */}
                 <input
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
                   type="text"
+                  name = "username"
+                  onChange={handleChange}
+                  value = {formData.username}
                   placeholder="Enter Your Username"
                 />
                 <input
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
                   type="email"
+                  name = "email"
+                  onChange={handleChange}
+                  value = {formData.email}
                   placeholder="Enter Your Email"
                 />
                 <input
                   className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
                   type="text"
+                  name = "fullName"
+                  onChange={handleChange}
+                  value = {formData.fullname}
                   placeholder="Enter Your Full Name"
                 />
 
@@ -65,14 +129,15 @@ function Register() {
                   <div className="flex flex-col gap-4">
                     <p className="text-md font-medium mb-2">Year Group:</p>
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
-                      {[7, 8, 9, 10, 11, 12, 13].map((year) => (
+                      {['7', '8', '9', '10', '11', '12', '13'].map((year) => (
                         <label key={year} className="cursor-pointer">
                           <input
                             type="radio"
                             name="yearGroup"
-                            value={`Y${year}`}
+                            value={year}
                             className="hidden peer"
-                            defaultChecked={year === 7}
+                            checked={formData.yearGroup == year}
+                            onChange={handleChange}
                           />
                           <span className="px-4 py-2 rounded-lg block text-center bg-gray-200 peer-checked:bg-[#8E74D0] peer-checked:text-white">
                             Y{year}
@@ -93,7 +158,9 @@ function Register() {
                             name="classGroup"
                             value={cls}
                             className="hidden peer"
-                            defaultChecked={cls === "B"}
+                           
+                            checked={formData.classGroup === cls}
+                            onChange={handleChange}
                           />
                           <span className="px-6 py-2 rounded-lg block text-center bg-gray-200 peer-checked:bg-[#8E74D0] peer-checked:text-white">
                             {cls}
@@ -112,6 +179,9 @@ function Register() {
                       className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
                       type={showPassword ? "text" : "password"}
                       placeholder="Create a Password"
+                      name="password"
+                      value={formData.password}
+                      onChange={handleChange}
                     />
                     <button
                       type="button"
@@ -127,6 +197,9 @@ function Register() {
                     <input
                       className="w-full rounded-lg border border-gray-300 px-4 py-2 focus:outline-none focus:ring focus:ring-[#8E74D0]"
                       type={showConfirmPassword ? "text" : "password"}
+                      name="confirmPassword"
+                      value={formData.confirmPassword}
+                      onChange={handleChange}
                       placeholder="Confirm Password"
                     />
                     <button

@@ -1,9 +1,18 @@
 import React, {useState, useEffect} from "react";
-import {Link} from "react-router-dom"
+import {Link, Navigate} from "react-router-dom"
 import StudentNav from "../components/StudentNav";
+import axios from "axios";
+import { jwtDecode } from "jwt-decode";
 
 function TestInstruction() {
     const [page, setPage] = useState("instruction")
+    const [code, setCode] = useState("")
+    const student_id = jwtDecode(localStorage.getItem("token")).student_id
+
+    const handleSubmit = async () => {
+        const response = await axios.post("http://localhost:4000/api/v2/student/join-game") 
+    }
+    
     
     
 
@@ -33,7 +42,7 @@ function TestInstruction() {
                                 <h1 className="font-bold text-2xl text-center">Enter Code Here</h1>
                                 <textarea cols={30} rows={1} className=" bg-white border-2 border-gray-300 mx-auto p-3 text-xl resize-none text-center w-3/4" ></textarea>
 
-                                <Link to = "/student/test" className="w-2/3 mx-auto text-xl font-medium bg-gray-500 text-white max-w[100px] py-3 rounded-xl cursor-pointer hover:bg-white transition-colors duration-400 ease-in-out hover:text-gray-500 text-center">Start Quiz</Link>
+                                <button onChange = {e => setCode(e.target.value)}className="w-2/3 mx-auto text-xl font-medium bg-gray-500 text-white max-w[100px] py-3 rounded-xl cursor-pointer hover:bg-white transition-colors duration-400 ease-in-out hover:text-gray-500 text-center">Start Quiz</button>
                             </div> }
                             
                 </div>

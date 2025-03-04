@@ -57,6 +57,14 @@ function App() {
           }
         />
         <Route
+          path="/student/leaderboard"
+          element={
+            <ProtectedRoute>
+              <TestDashboard />
+            </ProtectedRoute>
+          }
+        />
+        <Route
           path="/teacher/leaderboard"
           element={
             <ProtectedRoute>
@@ -80,6 +88,15 @@ function App() {
             </ProtectedRoute>
           }
         />
+        <Route
+          path="/teacher/create-test"
+          element={
+            <ProtectedRoute>
+              <CreateTest />
+            </ProtectedRoute>
+          }
+        />
+        
         <Route
           path="/admin/home"
           element={

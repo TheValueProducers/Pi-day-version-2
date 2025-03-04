@@ -10,6 +10,7 @@ const CreateAccount = () => {
     const [password, setPassword] = useState("");
     const [realName, setRealName] = useState("");
     const [email, setEmail] = useState("");
+    const token = localStorage.getItem("token");
 
     const createAccount = async (e) => {
         e.preventDefault(); // Prevent form submission reload
@@ -35,6 +36,11 @@ const CreateAccount = () => {
                 password,
                 full_name: realName,
                 email,
+            },
+            {
+                headers: {
+                    Authorization: `Bearer ${token}`, // ✅ Send token in headers
+                },
             });
 
             if (response.status === 201) {

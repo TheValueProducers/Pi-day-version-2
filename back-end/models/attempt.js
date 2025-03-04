@@ -9,7 +9,7 @@ module.exports = (sequelize, DataTypes) => {
       type: DataTypes.UUID
     },
     game_id: {
-      type: DataTypes.STRING(6)
+      type: DataTypes.UUID
     },
     answer: DataTypes.TEXT,
     

@@ -17,7 +17,7 @@ module.exports = {
         onUpdate: 'CASCADE'
       },
       game_id: {
-        type: Sequelize.STRING(6),
+        type: Sequelize.UUID,
         references: {
           model: 'Games',
           key: 'game_id'

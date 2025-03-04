@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { Bars3Icon, QuestionMarkCircleIcon, ChevronDownIcon, UserCircleIcon} from '@heroicons/react/24/solid';
-//import react route & routes
-//change all <a> tags to <Link> 
+import {Link} from "react-router-dom"
 
 function TeacherNav() {
   const [menuOption, setMenuOption] = useState(false);
@@ -34,6 +33,11 @@ function TeacherNav() {
         setDDropDown(false);
     }, 100); // 300ms delay before closing
   };
+  const logOut = () => {
+    localStorage.removeItem("token")
+    window.location.href = "/sign-in"
+
+  }
 
 
 
@@ -55,23 +59,23 @@ function TeacherNav() {
         {/* Mobile Menu Options */}
           {menuOption &&
               <div id="mobile-options" className="w-full h-auto bg-[#8E74D0] absolute top-full flex flex-col text-sm font-semibold">
-              <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 flex item-center justify-center relative" onClick={ openDropDownMenu }> Home <span> <ChevronDownIcon className='size-4 absolute mt-2 ml-2  '/></span></a>
+              <Link to="/teacher/home" className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 flex item-center justify-center relative" onClick={ openDropDownMenu }> Home <span> <ChevronDownIcon className='size-4 absolute mt-2 ml-2  '/></span></Link>
               
               {mobileMenuDropDown && 
               <div className='flex flex-col justify-center'>
-                  <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> About Pi Day</a>
-                  <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Day Competition</a>
-                  <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Fun Facts</a>
-                  <a className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Our Team</a>
+                  <Link to="/teacher/home#about-pi-day" className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> About Pi Day</Link>
+                  <Link to="/teacher/home#pi-day-comp" className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Day Competition</Link>
+                  <Link to="/teacher/home#fun-facts" className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Fun Facts</Link>
+                  <Link to="/teacher/home#our-team" className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Our Team</Link>
               </div>
 
               }
 
-              <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Pratice</a>
-              <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Create Test</a>
-              <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Dashboard</a>
-              <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</a>
-              <a className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> My Account</a>
+              <Link className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Pratice</Link>
+              <Link to="/teacher/create-test" className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Create Test</Link>
+              <Link to="/teacher/leaderboard" className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Dashboard</Link>
+              <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</Link>
+              <Link onClick={() => logOut()} className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> My Account</Link>
               
 
               
@@ -97,9 +101,9 @@ function TeacherNav() {
               onMouseLeave={closeDesktopDropDownMenu} 
               >
                   {/* Home Link */}
-                  <a className="text-black px-4 hover:text-[#886fc7] py-1 font-medium text-sm lg:text-lg ">
+                  <Link to="/teacher/home" className="text-black px-4 hover:text-[#886fc7] py-1 font-medium text-sm lg:text-lg ">
                       Home
-                  </a>
+                  </Link>
 
                   {/* Dropdown Menu */}
                   {desktopMenuDropDown && (
@@ -108,33 +112,33 @@ function TeacherNav() {
                       onMouseEnter={openDesktopDropDownMenu} // Keeps dropdown open
                       onMouseLeave={closeDesktopDropDownMenu} // Delayed close
                       >
-                      <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition rounded-t-lg">
+                      <Link to="/teacher/home#about-pi-day" className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition rounded-t-lg">
                           About Pi Day
-                      </a>
-                      <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition">
+                      </Link>
+                      <Link to="/teacher/home#pi-day-comp" className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition">
                           Pi Day Competition
-                      </a>
-                      <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition">
+                      </Link>
+                      <Link to="/teacher/home#fun-facts" className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition">
                           Pi Fun Facts
-                      </a>
-                      <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition rounded-b-lg">
+                      </Link>
+                      <Link to="/teacher/home#our-team" className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-3 transition rounded-b-lg">
                           Our Team
-                      </a>
+                      </Link>
                       </div>
                   )}
               </div>
-              <a className=" text-black  hover:text-[#886fc7] py-1 font-medium  px-4 lg:px6 text-sm lg:text-lg  ">Practice</a>
-              <a className=" text-black whitespace-nowrap py-1 hover:text-[#886fc7] px-4 lg:px6  font-medium   text-sm lg:text-lg  ">Create Test</a>
-              <a className=" text-black  hover:text-[#886fc7] py-1 font-medium px-4 lg:px6  text-sm lg:text-lg  ">Dashboard</a>
-              <a className=" text-black  hover:text-[#886fc7] py-1 font-medium px-4 lg:px6  text-sm lg:text-lg  ">Contact</a>
+              <Link className=" text-black  hover:text-[#886fc7] py-1 font-medium  px-4 lg:px6 text-sm lg:text-lg  ">Practice</Link>
+              <Link to="/teacher/create-test" className=" text-black whitespace-nowrap py-1 hover:text-[#886fc7] px-4 lg:px6  font-medium   text-sm lg:text-lg  ">Create Test</Link>
+              <Link to="/teacher/leaderboard" className=" text-black  hover:text-[#886fc7] py-1 font-medium px-4 lg:px6  text-sm lg:text-lg  ">Dashboard</Link>
+              <Link  className=" text-black  hover:text-[#886fc7] py-1 font-medium px-4 lg:px6  text-sm lg:text-lg  ">Contact</Link>
           </div>
 
           {/* Right Section */}
           {/* Acc Menu */}
           <div className="w-1/3 flex items-center gap-8 justify-end mr-2 ">
-              <a className="text-black px-4 py-1">
+              <Link onClick={() => logOut()}  className="text-black px-4 py-1">
                       <UserCircleIcon className='size-10 lg:size-12'/>
-              </a>    
+              </Link>    
           </div>
           </div>
 
