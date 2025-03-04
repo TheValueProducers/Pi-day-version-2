@@ -6,6 +6,7 @@ import AdminNav from "../components/AdminNav";
 
 const CreateAccount = () => {
     const navigate = useNavigate();
+
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [realName, setRealName] = useState("");
