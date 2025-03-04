@@ -10,7 +10,7 @@ import TeacherNav from '../components/TeacherNav'
 
 function Contact() {
     return ( 
-        <div className='w-full'>
+        <div className='w-full '>
             <GeneralNav/>
 
             <main className="container mx-auto flex flex-col md:gap-8 items-center justify-center">
