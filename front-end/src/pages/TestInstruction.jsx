@@ -38,6 +38,7 @@ function TestInstruction() {
                                 <p className="text-base text-white md:text-black text-wrap md:text-lg text-center" >Finally, just have fun! You're just reciting Pi numbers</p >
                                 <button className=" bg-[#8E74D0] text-lg md:text-xl font-medium bg- text-white px-5 py-3 rounded-xl cursor-pointer hover:bg-white transition-colors duration-400 ease-in-out hover:text-gray-500 " onClick={() => changePage("code")}>Continue</button>
                             </div> }
+                            
                             {page === "code" && 
                             <div className="flex flex-col item-center justify-center gap-8">
                                 <h1 className="font-medium text-white text-2xl text-center">Enter Code Here</h1>
