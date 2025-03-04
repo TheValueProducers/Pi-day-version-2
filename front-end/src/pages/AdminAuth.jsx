@@ -1,9 +1,9 @@
 import React from 'react';
-import {EyeIcon, EyeSlashIcon, ArrowLongLeftIcon} from '@heroicons/react/24/solid'
+import {EyeIcon, EyeSlashIcon} from '@heroicons/react/24/solid'
 import { useState } from "react";
 
 import Footer from "../components/Footer"
-import AdminNav from "../components/AdminNav"
+import GeneralNav from "../components/GeneralNav"
 import axios from "axios";
 
 
@@ -37,16 +37,9 @@ function AdminAuth() {
     return ( 
         <div className='w-full bg-white'>
         
-        <AdminNav />
+        <GeneralNav />
+        
         <main className="relative container mx-auto flex flex-col min-h-screen items-center justify-center px-4">
-                
-                <div className="absolute top-6 left-6 flex items-center gap-2">
-                <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-[#8E74D0]" />
-                <p className='text-xl font-semibold text-[#8E74D0]'>Home</p>
-                </div>
-                {/* Link this button back to Home.jsx when click */}
-
-
                 <div className=" w-3/4 md:w-2/5 flex flex-col md:flex-row items-center justify-center gap-10  rounded-md border-0 lg:border-[1px] md:border-gray-200">
                     
                     {/* Left Side: Form */}

@@ -13,7 +13,7 @@ function Footer() {
         <a href="#" className="py-1 text-sm font-medium text-white hover:underline 2xl:text-base">Contact</a>
       </div>
     </div>
-    <div className="flex w-full items-center justify-center gap-8 bg-[#55477a] py-4">
+    <div className="flex w-full items-center justify-center gap-8 bg-[#261b43] py-4">
       <p className="text-center text-white text-sm">
       Copyright © 2025 Pi Day Competition | Developed by the BVIS Tech Committee
       </p>

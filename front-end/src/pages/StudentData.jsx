@@ -18,20 +18,20 @@ function StudentData() {
         <div className='bg-[#574979] w-full '>
              {userLevel === "teacher"? <TeacherNav />: <AdminNav /> }
 
-            <div className='min-h-screen mx-auto  relative container flex flex-col items-center justify-center py-16'>
-                <div className="absolute top-3 left-3 md:top-6 md:left-6 flex items-center gap-2">
+            <div className='min-h-screen mx-auto  relative container flex flex-col items-center justify-center'>
+                <div className="absolute top-3 left-3 md:top-6 md:left-6 flex items-center gap-2 mt-22 pb-6">
                         <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-white" />
                     <Link to = {previousLocation} className='text-base md:text-xl font-semibold text-white'>Return</Link>
                     {/* Link this button back to TestTable.jsx when click */}
                 </div>
 
-                <div className='flex min-w-full md:w-3/4 item-center justify-center'> 
+                <div className='flex min-w-full md:w-3/4 item-center justify-center mt-20 py-18'> 
                     
                    <div className="w-3/4 flex flex-col items-center justify-center gap-8 bg-white rounded-lg py-8">
                  
                         <h1 className='text-lg md:text-2xl font-medium text-center'>{`${username}'s Response`}</h1>
-                    
 
+                        
                         <div className='w-4/5 flex flex-col items-center justify-center gap-8  '>
                             <div className='w-full flex items-center justify-between'>
                                 <label htmlFor='username' className='font-medium text-sm md:text-lg '>Username:</label>

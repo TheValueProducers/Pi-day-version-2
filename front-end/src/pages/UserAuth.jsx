@@ -1,9 +1,8 @@
 import React, {useState} from 'react';
-import {EyeIcon, EyeSlashIcon, ArrowLongLeftIcon} from '@heroicons/react/24/solid'
+import {EyeIcon, EyeSlashIcon} from '@heroicons/react/24/solid'
 import {Link} from "react-router-dom"
 
 import Footer from "../components/Footer"
-
 import GeneralNav from "../components/GeneralNav"
 
 
@@ -16,10 +15,7 @@ function UserAuth() {
             <div className='w-full bg-white'>
                 <GeneralNav />    
                 <main className="relative container mx-auto flex flex-col min-h-screen items-center justify-center px-4">
-                    <div className="absolute top-3 left-3 md:top-6 md:left-6 flex items-center gap-2">
-                        <ArrowLongLeftIcon className="size-8 text-pr font-semibold text-[#8E74D0]" />
-                        <p className='text-xl font-semibold text-[#8E74D0]'>Home</p>
-                    </div>
+
                 {/* Link this button back to Home.jsx when click */}   
 
             <div className=" w-3/4 md:w-2/5 flex flex-col md:flex-row items-center justify-center gap-10  rounded-md border-0 lg:border-[1px] md:border-gray-200">

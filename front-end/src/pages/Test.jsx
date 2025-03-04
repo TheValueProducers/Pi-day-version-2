@@ -74,12 +74,12 @@ function Test(){
 
     return(
         
-        <div className="flex flex-col item-center justify-center w-full h-screen">
+        <div className="relative flex flex-col item-center justify-center w-full bg-[#574979]">
             
-            {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-md h-screen w-full flex justify-center items-center text-center font-bold text-3xl ">{message}</div>)} 
-            <div className="flex flex-col item-center justify-center container mx-auto w-full h-screen gap-20">
+            {outScreen.out === true && (<div className="fixed z-50 backdrop-blur-xl h-screen w-full flex justify-center items-center text-center font-bold text-3xl ">{message}</div>)} 
+            <div className="flex flex-col item-center justify-center container mx-auto w-full min-h-screen gap-20 py-20">
             <div className="flex w-full justify-center items-center md:justify-start ">
-                <div className="border-6 flex justify-center items-center rounded-lg border-black text-4xl md:text-5xl  p-2 space-x-2 bg-white md:ml-8">
+                <div className="border-6 flex justify-center items-center rounded-lg border-[#3b2b63]  text-4xl md:text-5xl  p-2 space-x-2 bg-white md:ml-8">
                     <span>0</span>
                     <span>0</span>
                     <span>:</span>
@@ -93,12 +93,16 @@ function Test(){
             </div>
             <div className="w-full flex flex-col justify-center items-center gap-12 py-8">
                 <div className="flex flex-col items-center justify-center gap-2">
-                    <h1 className="font-semibold text-center text-2xl ">Enter Your Pi Numbers Here</h1>
-                    <h1 className="font-semibold text-center text-2xl ">Good Luck!</h1>
+                    <h1 className="font-semibold text-center text-white text-2xl ">Enter Your Pi Numbers Here</h1>
+                    <h1 className="font-semibold text-center text-white text-2xl ">Good Luck!</h1>
 
                 </div>
 
-                <textarea cols={16} rows={6} className=" resize-none bg-white p-3 text-2xl border-2 border-black rounded-2xl md:w-3/4" onPaste={preventPaste}></textarea>
+                    <textarea cols={16} rows={6} className=" resize-none bg-white p-3 text-xl border-2 border-[#3b2b63] rounded-xl md:w-3/4" onPaste={preventPaste}></textarea>
+
+                     <button className=" bg-[#8E74D0] text-lg md:text-xl font-medium bg- text-white px-8 py-3 rounded-xl cursor-pointer transition-colors duration-400 ease-in-out  ">Submit</button>
+
+
 
             </div>
 

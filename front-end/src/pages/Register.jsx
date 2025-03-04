@@ -17,15 +17,7 @@ function Register() {
     <div className="w-full bg-white">
       <GeneralNav />
 
-      <main className="container relative mx-auto flex flex-col min-h-screen items-center justify-center px-4 py-18 md:py-12">
-        {/* Home Button */}
-        <div className="absolute top-4 left-4 md:top-6 md:left-6 flex items-center gap-2">
-          <ArrowLongLeftIcon className="size-8 text-[#8E74D0]" />
-          <Link to="/" className="text-lg md:text-xl font-semibold text-[#8E74D0]">
-            Home
-          </Link>
-        </div>
-
+      <main className="container relative mx-auto flex flex-col min-h-screen items-center justify-center px-4 md:py-32 py-28">
         {/* Register Form Section */}
         <div className="flex flex-col md:flex-row items-center justify-center lg:px-6 gap-10 lg:py-6 rounded-md border-0 lg:border-[1px] md:border-gray-200 w-full max-w-5xl">
           
@@ -143,6 +135,8 @@ function Register() {
                 <button className="w-1/2 rounded-sm bg-[#8E74D0] py-2 text-white hover:bg-[#886fc7] text-lg font-medium">
                   Sign Up
                 </button>
+
+                <p>Already have an account? <Link className="text-blue-700 font-medium underline" to="/sign-in">Sign In</Link></p>
               </form>
             </section>
           </div>

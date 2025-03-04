@@ -54,12 +54,11 @@ function TestDashboard() {
         <div className='bg-[#574979] w-full '>
             {userLevel === "teacher"? <TeacherNav />: <AdminNav /> }
             
-            <div className='min-h-screen flex flex-col items-center justify-center py-10'>
-                <div className='flex container item-center justify-center'>         
+            <div className='min-h-screen flex flex-col items-center justify-center py-24'>
+                <div className='flex container mx-auto item-center justify-center'>         
                    <div className="w-full max-w-4/5 lg:max-w-2/3 flex flex-col items-center justify-center gap-8 md:py-8 px-6 md:bg-white md:shadow-lg rounded-lg">
                         {/* Title */}
                         <h2 className="font-semibold text-center text-3xl text-white md:text-gray-800 whitespace-nowrap">Test History</h2>
-
                         <div className='w-full max-w-[800px] h-[300px] md:h-[450px] overflow-y-auto flex flex-col items-center justify-start gap-4'>
                             {mockGames.map(game => {
                                 return (

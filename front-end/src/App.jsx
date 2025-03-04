@@ -13,9 +13,11 @@ import TestTable from "./pages/TestTable";
 import StudentData from "./pages/StudentData";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnProtectedRoute from "./components/UnProtectedRoute";
+import NavBarTester from './pages/NavBarTester'
 
 function App() {
   return (
+
     <Router>
       <Routes>
         <Route path="/home"          element={<UnProtectedRoute><h1>This is home!!!</h1></UnProtectedRoute>} />
@@ -130,6 +132,9 @@ function App() {
         />
       </Routes>
     </Router>
+
+
+
   );
 }
 

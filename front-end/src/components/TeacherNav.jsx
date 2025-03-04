@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Bars3Icon, QuestionMarkCircleIcon, ChevronDownIcon, UserCircleIcon} from '@heroicons/react/24/solid';
+import { Bars3Icon, ChevronDownIcon, UserCircleIcon } from '@heroicons/react/24/solid';
+import { ReactComponent as LogoIcon } from "../assets/logo.svg";
 //import react route & routes
 //change all <a> tags to <Link> 
 
@@ -8,9 +9,12 @@ function TeacherNav() {
 
   const [mobileMenuDropDown, setDropDown] = useState(false)
 
-  const [desktopMenuDropDown, setDDropDown ] = useState(false)
+  const [desktopMenuDropDown, setDDropDown] = useState(false)
+  
+  const [userMenuDropDown, setUserDD] = useState(false)
 
-  let timeoutId; // Stores the timeout reference
+
+
 
 
   const onClickToOpenMenuOption = () => {
@@ -21,6 +25,24 @@ function TeacherNav() {
     setDropDown(!mobileMenuDropDown)
   }
 
+  // User
+
+
+  const openUserMenu = () => {
+    clearTimeout(timeoutId); 
+    setUserDD(true)
+  }
+
+  const closeUserMenu = () => {
+    timeoutId = setTimeout(() => {
+    setUserDD(false);
+    }, 100); // 300ms delay before closing
+  }
+  
+
+
+
+  let timeoutId; // Stores the timeout reference
 
   // Opens the dropdown immediately
   const openDesktopDropDownMenu = () => {
@@ -39,13 +61,13 @@ function TeacherNav() {
 
   return (
 
-    <div className='w-full bg-white shadow-md'>
+    <div className='w-full bg-white shadow-md fixed z-100'>
       <nav className=" w-full flex items-center justify-center sticky max-h-18 md:container md:mx-auto">
       
           {/* Mobile Menu */}
         <div className='w-full flex items-center justify-between md:hidden'>
           <div className="logo ml-4 py-4">
-              <QuestionMarkCircleIcon className='size-10'/>
+            <LogoIcon className="size-10"/>
           </div>
 
           {/* Mobile Menu Button */}
@@ -84,14 +106,14 @@ function TeacherNav() {
       <div className='flex  w-full items-center justify-between  '>
 
           <div className="hidden md:block logo ml-2 py-4">
-              <QuestionMarkCircleIcon className='size-10'/>
+              <LogoIcon className="size-10"/>
           </div>
       
   
           <div className="w-5/6 hidden md:flex justify-around items-center">
           {/* Left Section */}
-          <div className="w-2/3 flex items-center gap-4 justify-center">
-              <div 
+          <div className="w-4/5 flex items-center gap-4 justify-center">
+          <div 
               className="relative "
               onMouseEnter={openDesktopDropDownMenu} 
               onMouseLeave={closeDesktopDropDownMenu} 
@@ -130,15 +152,33 @@ function TeacherNav() {
           </div>
 
           {/* Right Section */}
-          {/* Acc Menu */}
-          <div className="w-1/3 flex items-center gap-8 justify-end mr-2 ">
+            {/* Acc Menu */}
+            
+          <div 
+              className="relative flex items-center justify-center w-16"
+              onMouseEnter={openUserMenu}
+              onMouseLeave={closeUserMenu}
+          >
+              {/* User Icon */}
               <a className="text-black px-4 py-1">
-                      <UserCircleIcon className='size-10 lg:size-12'/>
-              </a>    
+                  <UserCircleIcon className="size-10 lg:size-12 text-[#886fc7]" />
+              </a>   
+
+              {/* Dropdown Menu */}
+              {userMenuDropDown && (
+                  <div 
+                      className="absolute top-full left-1/2 -translate-x-1/2 mt-4 w-32 bg-white shadow-lg rounded-lg border-[0] z-50 flex flex-col items-center"
+                  >
+                      <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-2 transition rounded-t-lg">
+                          My Account
+                      </a>
+                      <a className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-sm lg:text-lg text-center py-2 transition rounded-b-lg">
+                          Log Out
+                      </a>
+                  </div>
+              )}
           </div>
           </div>
-
-
 
       </div>
 

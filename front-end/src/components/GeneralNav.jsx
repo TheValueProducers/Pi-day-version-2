@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
-import { Bars3Icon, QuestionMarkCircleIcon, ChevronDownIcon} from '@heroicons/react/24/solid';
+import { Bars3Icon, ChevronDownIcon } from '@heroicons/react/24/solid';
+import { ReactComponent as LogoIcon } from "../assets/logo.svg";
 import {Link} from "react-router-dom"
 //import react route & routes
 //change all <Link > tags to <Link> 
@@ -39,13 +40,13 @@ function Header() {
 
 
   return (
-    <div className='w-full bg-white shadow-md'>
+    <div className='w-full bg-white shadow-md fixed z-100'>
       <nav className=" w-full flex items-center justify-center sticky max-h-18 md:container md:mx-auto">
       
           {/* Mobile Menu */}
         <div className='w-full flex items-center justify-between md:hidden'>
           <div className="logo ml-4 py-4">
-              <QuestionMarkCircleIcon className='size-10'/>
+              <LogoIcon className="size-10"/>
           </div>
 
         {/* Mobile Menu Button */}
@@ -54,7 +55,7 @@ function Header() {
         </div>
       {/* Mobile Menu Options */}
         {menuOption &&
-            <div id="mobile-options" className="w-full h-auto bg-[#8E74D0] absolute top-full mt-2 flex flex-col text-sm font-semibold">
+            <div id="mobile-options" className="w-full h-auto bg-[#8E74D0] absolute top-full flex flex-col text-sm font-semibold">
             <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 flex item-center justify-center relative" onClick={ openDropDownMenu }> Home <span> <ChevronDownIcon className='size-4 absolute mt-2 ml-2  '/></span></Link >
             
             {mobileMenuDropDown && 
@@ -82,7 +83,7 @@ function Header() {
       <div className='flex  w-full items-center justify-between  '>
 
           <div className="hidden md:block logo ml-2 py-4">
-              <QuestionMarkCircleIcon className='size-10'/>
+              <LogoIcon className="size-10"/>
           </div>
       
 
@@ -103,11 +104,11 @@ function Header() {
       {/* Dropdown Menu */}
       {desktopMenuDropDown && (
         <div 
-          className="absolute top-full left-1/2 -translate-x-1/2 mt-2 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50 flex flex-col"
+          className="absolute top-full left-1/2 -translate-x-1/2 mt-8 w-48 bg-white shadow-lg rounded-lg border border-gray-200 z-50 flex flex-col"
           onMouseEnter={openDesktopDropDownMenu} // Keeps dropdown open
           onMouseLeave={closeDesktopDropDownMenu} // Delayed close
         >
-          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition rounded-t-lg">
             About Pi Day
           </Link >
           <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
@@ -116,7 +117,7 @@ function Header() {
           <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
             Pi Fun Facts
           </Link >
-          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition rounded-b-lg">
             Our Team
           </Link >
         </div>
