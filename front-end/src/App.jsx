@@ -11,8 +11,12 @@ import CreateTest from "./pages/CreateTest";
 import TestDashboard from "./pages/TestDashboard";
 import TestTable from "./pages/TestTable";
 import StudentData from "./pages/StudentData";
-import ProtectedRoute from "./components/ProtectedRoute";
-import UnProtectedRoute from "./components/UnProtectedRoute";
+import HostTest from "./pages/HostTest";
+import Leaderboard from "./pages/Leaderboard";
+import UserAccount from "./pages/UserAccount"
+
+import ProtectedRoute from './components/ProtectedRoute'
+import UnProtectedRoute from './components/UnProtectedRoute'
 import NavBarTester from './pages/NavBarTester'
 import Contact from './pages/Contact'
 
@@ -45,6 +49,38 @@ function App() {
             </ProtectedRoute>
           }
         />
+                <Route
+          path="/student/user-account"
+          element={
+            <ProtectedRoute>
+              <UserAccount/>
+            </ProtectedRoute>
+          }
+        />
+                <Route
+          path="/teacher/user-account"
+          element={
+            <ProtectedRoute>
+              <UserAccount/>
+            </ProtectedRoute>
+          }
+        />
+          <Route
+          path="/admin/user-account"
+          element={
+            <ProtectedRoute>
+               <UserAccount/>
+            </ProtectedRoute>
+          }
+        />
+        <Route
+          path="/student/leaderboard"
+          element={
+            <ProtectedRoute>
+              <Leaderboard/>
+            </ProtectedRoute>
+          }
+        />
         <Route
           path="/student/test-instruction"
           element={
@@ -67,6 +103,15 @@ function App() {
           element={
             <ProtectedRoute>
               <CreateTest />
+            </ProtectedRoute>
+          }
+        />
+
+        <Route
+          path="/teacher/host-test"
+          element={
+            <ProtectedRoute>
+              <HostTest />
             </ProtectedRoute>
           }
         />
