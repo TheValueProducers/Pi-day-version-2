@@ -61,6 +61,16 @@ function App() {
             </ProtectedRoute>
           }
         />
+
+        <Route
+          path="/teacher/create-test"
+          element={
+            <ProtectedRoute>
+              <CreateTest />
+            </ProtectedRoute>
+          }
+        />
+
         <Route
           path="/teacher/leaderboard"
           element={

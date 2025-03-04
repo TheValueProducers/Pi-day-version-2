@@ -8,7 +8,6 @@ import { jwtDecode } from "jwt-decode";
 function TestInstruction() {
     const [page, setPage] = useState("instruction")
     const [code, setCode] = useState("")
-    
     const student_id = jwtDecode(localStorage.getItem("token")).student_id
 
     const handleSubmit = async () => {
