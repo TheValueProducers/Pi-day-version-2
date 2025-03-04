@@ -1,5 +1,5 @@
 require("dotenv").config()
-const {Admin, Teacher} = require('../models');
+const {Admin, Teacher, Attempt, Game} = require('../models');
 const bcrypt = require('bcrypt');
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET
@@ -37,7 +37,8 @@ exports.adminLogin = async (req,res) => {
 
 exports.createAccount = async (req,res) => {
     try{
-        const {admin_id, username, password, full_name, email} = req.body;
+        const {username, password, full_name, email} = req.body;
+        const {admin_id} = req.user
         const teacher = await Teacher.create({admin_id, username, password, full_name, email})
         if(!teacher){
             return res.status(500).json({"message": "error creating account"})
@@ -64,3 +65,56 @@ exports.displayAccount = async (req,res) => {
         console.log(err);
     }
 }
+
+exports.showLeaderboard = async (req, res) => {
+    try {
+        const { name } = req.body; 
+        let attempts;
+
+        if (name === "all") {
+            // Get all attempts from the table
+            attempts = await Attempt.findAll()
+            if (!attempts) {
+                return res.status(404).json({ error: "Attempts not found" });
+            }
+            attempts = await processPiResponses(attempts)
+
+        } else {
+            // Find the game first, then get its attempts
+            const game = await Game.findOne({
+                where: { name },
+                include: {
+                    model: Attempt,
+                    as: "attempts"
+                }
+            });
+
+            if (!game) {
+                return res.status(404).json({ error: "Game not found" });
+            }
+
+            attempts = await processPiResponses(game.attempts); 
+        }
+
+        res.status(200).json({ attempts });
+
+    } catch (err) {
+        console.error("Error in showLeaderboard:", err);
+        res.status(500).json({ error: "Internal server error" });
+    }
+};
+
+exports.showGames = async (req, res) => {
+    try {
+        
+
+        const games = await Game.findAll();
+
+        return res.status(200).json({ message: "Successfully retrieved games", games });
+    } catch (err) {
+        console.error("Error fetching games:", err);
+        return res.status(500).json({ message: "Error retrieving games" });
+    }
+};
+
+

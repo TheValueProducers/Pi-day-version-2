@@ -14,6 +14,7 @@ import StudentData from "./pages/StudentData";
 import ProtectedRoute from "./components/ProtectedRoute";
 import UnProtectedRoute from "./components/UnProtectedRoute";
 import NavBarTester from './pages/NavBarTester'
+import Contact from './pages/Contact'
 
 function App() {
   return (
@@ -22,8 +23,10 @@ function App() {
       <Routes>
         <Route path="/home"          element={<UnProtectedRoute><h1>This is home!!!</h1></UnProtectedRoute>} />
         <Route path="/register"      element={<UnProtectedRoute><Register /></UnProtectedRoute>} />
-        <Route path="/sign-in"       element={<UnProtectedRoute><UserAuth /></UnProtectedRoute>} />
-        <Route path="/admin/sign-in" element={<UnProtectedRoute><AdminAuth /></UnProtectedRoute>} /> {/* Not protected */}
+        <Route path="/sign-in" element={<UnProtectedRoute><UserAuth /></UnProtectedRoute>} />
+        <Route path="/contact" element={<UnProtectedRoute><Contact /></UnProtectedRoute>} />
+        <Route path="/admin/sign-in" element={<UnProtectedRoute><AdminAuth /></UnProtectedRoute>} />
+        {/* Not protected */}
 
         {/* Protected Routes */}
         <Route

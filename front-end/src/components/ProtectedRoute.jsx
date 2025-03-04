@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode";
 
 //jwt  const token  = jwt.sign({admin_id: admin.admin_id, role: "admin"}, JWT_SECRET)
 
-const ProtectedRoute = ({children}) => {
+const ProtectedRoute = ({children, page}) => {
     const location = useLocation()
     const token = localStorage.getItem("token"); 
 
@@ -15,6 +15,8 @@ const ProtectedRoute = ({children}) => {
         localStorage.removeItem("token");
         return <Navigate to="/sign-in" replace />;
     }
+
+    
     
     const decodedToken = jwtDecode(token)
     const {role} = decodedToken;

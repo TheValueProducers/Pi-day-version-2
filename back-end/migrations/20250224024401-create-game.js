@@ -2,9 +2,10 @@ module.exports = {
   async up(queryInterface, Sequelize) {
     await queryInterface.createTable('Games', {
       game_id: {
-        type: Sequelize.STRING(6),
+        allowNull: false,
         primaryKey: true,
-        allowNull: false
+        type: Sequelize.UUID,
+        defaultValue: Sequelize.UUIDV4
       },
       name: {
         type: Sequelize.TEXT,
@@ -34,10 +35,13 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
+      
       createdAt: Sequelize.DATE,
       updatedAt: Sequelize.DATE
     });
+    
   },
+  
 
   async down(queryInterface, Sequelize) {
     await queryInterface.dropTable('Games');
