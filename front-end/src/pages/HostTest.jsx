@@ -20,6 +20,9 @@ function HostTest() {
 
     function startGame() {
         setStatus(true);
+        if (socket) {
+            socket.emit("startGame", { gameId: game_id });
+        }
     }
     useEffect(() => {
         const newSocket = io(SOCKET_SERVER_URL);
@@ -70,12 +73,14 @@ function HostTest() {
         return () => clearInterval(timer);
     }, [status, time]);
 
-    // Emit event when the game ends
+
+    
     const endGame = () => {
-        setStatus(false);
+        
         if (socket) {
             socket.emit("endGame", { gameId: game_id });
         }
+        navigate("/teacher/home")
     };;
 
     // Convert seconds to hh:mm:ss format
@@ -140,7 +145,7 @@ function HostTest() {
 
                         {/* End Test Button */}
                         <button
-                            onClick={() => setStatus(false)}
+                            onClick={() => endGame()}
                             className="mt-6 bg-[#E63946] hover:bg-[#C5283D] text-white font-semibold text-lg md:text-2xl py-3 px-8 rounded-lg shadow-lg transition"
                         >
                             End Quiz

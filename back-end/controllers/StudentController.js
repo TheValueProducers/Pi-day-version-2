@@ -50,46 +50,68 @@ exports.studentLogin = async (req, res) => {
     }
 };
 
-
 exports.joinGame = async (req, res) => {
     try {
         const { code } = req.body;
-        const {student_id} = req.user;
+        const { student_id } = req.user;
+
         // ✅ Check if game exists
         const game = await Game.findOne({ where: { code } });
+        console.log(game);
         if (!game) {
             return res.status(404).json({ message: "Game not found" });
         }
+
         const game_id = game.game_id;
-        const attempt = await Attempt.create({student_id, game_id, status: "in_game"})
         
+        // Ensure we await the database query
+        const attempt = await Attempt.findOne({ where: { student_id, game_id } });
+        console.log(attempt);
+        if (attempt) {
+            return res.status(403).json({ message: "Student already played the game" });
+        }
 
-        
+        // Create a new attempt
+        await Attempt.create({ student_id, game_id, status: "in_game" });
+
         return res.status(201).json({ message: "Game joined successfully", game_id });
-
     } catch (err) {
         console.error("Error joining game:", err);
         return res.status(500).json({ message: "Failed to join game. Please try again." });
     }
 };
 
-exports.finishGame = async (req,res) => {
-    try{
-        const {student_id, answer, code} = req.body;
-        const game = await Game.findOne({where: {code}})
-        if (!game){
-            res.status(400).json({"message": "game does not exist"})
+exports.finishGame = async (req, res) => {
+    try {
+        const { student_id } = req.user;
+        const { answer, game_id } = req.body;
+
+        console.log("Answer received:", answer);
+        console.log("Game ID received:", game_id);
+
+        // Validate game existence
+        const game = await Game.findOne({ where: { game_id } });
+        if (!game) {
+            return res.status(400).json({ message: "Game does not exist" });
         }
 
-       await Attempt.update({answer, status: "finished"}, {where: {student_id}})
+        // Update attempt with answer and status
+        const updateResult = await Attempt.update(
+            { answer, status: "finished" },
+            { where: { student_id, game_id } }
+        );
 
-        res.status(200).json({"message": "game joined successfully"})
+        if (updateResult[0] === 0) {
+            return res.status(404).json({ message: "No attempt found for this student in the specified game" });
+        }
 
-
-    }catch(err){
-        console.log(err);
+        return res.status(200).json({ message: "Game finished successfully" });
+    } catch (err) {
+        console.error("Error finishing game:", err);
+        return res.status(500).json({ message: "Internal server error. Please try again." });
     }
-}
+};
+
 
 exports.contact = async (req,res) => {
 

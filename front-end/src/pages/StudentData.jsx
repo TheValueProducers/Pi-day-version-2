@@ -1,17 +1,41 @@
-import React, {useState} from 'react'
+import React, {useEffect, useState} from 'react'
 import TeacherNav from '../components/TeacherNav'
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid'
-import {useLocation, Link} from "react-router-dom"
+import {useLocation, Link, useParams} from "react-router-dom"
 import AdminNav from '../components/AdminNav'
+import axios from 'axios'
 
 import Footer from '../components/Footer';
 
 
 function StudentData() {
+    const [data, setData] = useState({})
     const location = useLocation();
     const previousLocation = location.pathname.split("/").slice(0, -1).join("/");
-    const userLevel = location.pathname.split("/")[1]
-    const username = location.pathname.split("/")[4]
+    const {game_id, username} = useParams()
+    const token = localStorage.getItem("token")
+    const userLevel = useLocation().pathname[1]
+    
+    const fetchData = async () => {
+        try{
+            const response = await axios.get(`http://localhost:4000/api/v2/teacher/get-student-info/${game_id}/${username}`,{
+                headers: {
+                    Authorization: `Bearer ${token}`, // ✅ Send token in headers
+                },
+            })
+            if (response.status === 201){
+                setData(({username: response.data.student.username, fullName: response.data.student.full_name, student_id: response.data.student.student_id, class: response.data.student.class, email: response.data.student.email, result: response.data.result.answer  }))
+            }
+
+        }catch(err){
+            alert(err)
+        }
+    }
+    useEffect(() => {
+        fetchData()
+    }, [])
+
+    
 
     
     return ( 
@@ -35,32 +59,32 @@ function StudentData() {
                         <div className='w-4/5 flex flex-col items-center justify-center gap-8  '>
                             <div className='w-full flex items-center justify-between'>
                                 <label htmlFor='username' className='font-medium text-sm md:text-lg '>Username:</label>
-                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly/>
+                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly placeholder={data.username}/>
                             </div>
 
                             <div className='w-full flex items-center justify-between  '>
                                 <label htmlFor='username' className='font-medium text-sm md:text-lg text-nowrap'>Full Name:</label>
-                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly/>
+                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly placeholder={data.fullName}/>
                             </div>
 
                             <div className='w-full flex items-center justify-between  '>
                                 <label htmlFor='username' className='font-medium text-sm md:text-lg'>ID:</label>
-                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly />
+                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly placeholder={data.student_id} />
                             </div>
 
                             <div className='w-full flex items-center justify-between  '>
                                 <label htmlFor='username' className='font-medium text-sm md:text-lg'>Class:</label>
-                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly />
+                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly placeholder={data.class} />
                             </div>
 
                             <div className='w-full flex items-center justify-between  '>
                                 <label htmlFor='username' className='font-medium text-sm md:text-lg'>Email:</label>
-                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly />
+                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly placeholder={data.email} />
                             </div>
                             
                             <div className='w-full flex items-center justify-between  '>
                                 <label htmlFor='username' className='font-medium text-sm md:text-lg'>Results:</label>
-                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly />
+                                <input className='bg-gray-100 border border-gray-300 py-2 px-4 w-4/5 font-medium text-sm md:text-lg' type="text" id='username' readOnly placeholder={data.result} />
                             </div>
 
 

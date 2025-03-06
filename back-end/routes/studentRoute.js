@@ -6,6 +6,7 @@ const verifyToken = require("../middleware/jwtVerify")
 router.post("/register", studentRegister)
 router.post("/sign-in", studentLogin)
 router.post("/join-game", verifyToken, joinGame)
+router.put("/end-game", verifyToken, finishGame )
 
 
 

@@ -35,9 +35,9 @@ module.exports = (sequelize, DataTypes) => {
     Game.belongsTo(models.Teacher, { foreignKey: "teacher_id", onDelete: "CASCADE" });
 
     // ✅ One-to-Many: A game has multiple attempts
-    Game.hasMany(models.Attempt, { foreignKey: "game_id", onDelete: "CASCADE" });
+    Game.hasMany(models.Attempt, { foreignKey: "game_id", onDelete: "CASCADE", as: "attempts" });
 
-    Game.belongsToMany(models.Student, {through: models.Attempt, foreignKey: "game_id",  onDelete: "CASCADE", onUpdate: "CASCADE" })
+    Game.belongsToMany(models.Student, {through: models.Attempt, foreignKey: "game_id",  onDelete: "CASCADE", onUpdate: "CASCADE", as: "students" })
   };
 
   return Game;

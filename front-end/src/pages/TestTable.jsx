@@ -5,6 +5,7 @@ import Footer from '../components/Footer';
 import { useLocation, Link } from 'react-router-dom';
 import { ArrowLongLeftIcon } from '@heroicons/react/24/solid';
 import axios from 'axios';
+import { useParams} from 'react-router-dom';
 
 
 function TestTable() {
@@ -12,18 +13,21 @@ function TestTable() {
     const userLevel = location.pathname.split("/")[1]
     const className = location.pathname.split("/")[3]
     const token = localStorage.getItem("token")
+    const {game_id} = useParams();
+    
+
 
     const [users, setUsers] = useState([]);
     useEffect(() => {
         const fetchTable = async () => {
           try {
-            const response = await axios.get("http://localhost:4000/api/v2/admin/show-leaderboard", {
+            const response = await axios.post(`http://localhost:4000/api/v2/teacher/show-leaderboard`, {game_id: game_id}, {
               headers: {
                 Authorization: `Bearer ${token}`, // ✅ Send token in headers
             }
             });
-            if (response.data && response.data.leaderboard.length > 0) {
-              setUsers(response.data.leaderboard); // Ensure you're setting the actual data
+            if (response.data && response.data.attempts.length > 0) {
+              setUsers(response.data.attempts); // Ensure you're setting the actual data
             }
           } catch (error) {
             alert("Error fetching games:", error);
@@ -67,8 +71,8 @@ function TestTable() {
                             {users.length > 0 && users.map(user => {
                                 return (<tr className="odd:bg-white bg-gray-300">
                                     <td className="py-4 text-xs  sm:text-sm md:text-xl text-center">{user.rank}</td>
-                                    <td className="py-4 text-xs  sm:text-sm md:text-xl text-center"><Link to = {`/${userLevel}/leaderboard/${className}/${user.name}`}>{user.name}</Link></td>
-                                    <td className="py-4 text-xs  sm:text-sm md:text-xl text-center">{user.piNumCorrect}</td>
+                                    <td className="py-4 text-xs  sm:text-sm md:text-xl text-center"><Link to = {`/${userLevel}/leaderboard/${className}/${user.username}`}>{user.username}</Link></td>
+                                    <td className="py-4 text-xs  sm:text-sm md:text-xl text-center">{user.correct_digits}</td>
                                         </tr>)
                                 })}  
                         </tbody>

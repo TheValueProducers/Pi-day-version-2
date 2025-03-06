@@ -3,8 +3,9 @@ const {Teacher, Game, Attempt, Student} = require('../models');
 
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET;
+const {Op} = require("sequelize")
 const processPiResponses = require("../utils/piAnswerRanking");
-const { where } = require("sequelize");
+
 
 
 
@@ -80,32 +81,89 @@ exports.startGame = async (req, res) => {
 
 exports.showLeaderboard = async (req, res) => {
     try {
-        const { name } = req.body; 
+        console.log("Im here");
+        const { game_id } = req.body; 
+        console.log("Received game_id:", game_id);
         let attempts;
 
-        if (name === "all") {
-            // Get all attempts from the table
-            attempts = await Attempt.findAll()
-            if (!attempts) {
-                return res.status(404).json({ error: "Attempts not found" });
-            }
-            attempts = await processPiResponses(attempts)
+        if (!game_id) {
+            return res.status(400).json({ error: "game_id is required" });
+        }
 
-        } else {
-            // Find the game first, then get its attempts
-            const game = await Game.findOne({
-                where: { name },
+        if (game_id === "all") {
+            // ✅ Get all attempts with non-null and non-empty answers
+            attempts = await Attempt.findAll({
+                where: {
+                    answer: {
+                        [Op.and]: [
+                            { [Op.ne]: null }, // `answer IS NOT NULL`
+                            { [Op.ne]: "" }    // `answer != ''`
+                        ]
+                    }
+                },
                 include: {
-                    model: Attempt,
-                    as: "attempts"
+                    model: Student,
+                    as: "students"
+
                 }
             });
+
+            attempts = attempts.map(attempt => ({
+                ...attempt.toJSON(), // ✅ Convert Sequelize object to JSON
+                username: attempt.students?.username // ✅ Retrieve username from Student association
+            }));
+            console.log(attempts);
+            
+            
+
+            if (!attempts.length) {
+                return res.status(404).json({ error: "No valid attempts found" });
+            }
+
+            attempts = await processPiResponses(attempts);
+            console.log(attempts);
+            
+        } else {
+            // ✅ Find the game
+            const game = await Game.findOne({
+                where: { game_id },
+                include: [
+                    {
+                        model: Attempt,
+                        as: "attempts", // ✅ Ensure alias matches the association
+                        required: false, // ✅ Ensure game is fetched even if no attempts exist
+                        include: [
+                            {
+                                model: Student,
+                                as: "students", // ✅ Ensure alias matches Attempt -> Student association
+                                attributes: ["username"]
+                            }
+                        ],
+                        where: {
+                            answer: {
+                                [Op.and]: [
+                                    { [Op.ne]: null }, // ✅ `answer IS NOT NULL`
+                                    { [Op.ne]: "" }    // ✅ `answer != ''`
+                                ]
+                            }
+                        }
+                    }
+                ]
+            });
+            
 
             if (!game) {
                 return res.status(404).json({ error: "Game not found" });
             }
 
-            attempts = await processPiResponses(game.attempts); 
+            if (!game.attempts.length) {
+                return res.status(404).json({ error: "No valid attempts for this game" });
+            }
+            attempts = game.attempts.map((attempt) => ({
+                ...attempt.toJSON(), // ✅ Convert Sequelize object to JSON
+                username: attempt.students?.username // ✅ Retrieve username from Student association
+            }) )
+            attempts = await processPiResponses(attempts);
         }
 
         res.status(200).json({ attempts });
@@ -157,19 +215,36 @@ exports.showGames = async (req, res) => {
     }
 };
 
-exports.endGame = async (res,res) => {
+exports.endGame = async (req,res) => {
     try{
         const {game_id} = req.params;
         if (!game_id){
             res.status(404).json({"message": "Game does not exist"})
         }
         const updatedGame = await Game.update({status: "finished", where: {game_id} })
-        
+
+        res.status(200).json({message: "Game ended successfully"})
+
         
 
     }catch(err){
         console.log(err);
         res.status(500).json({message: "Error processing end game"})
+    }
+}
+
+exports.getStudentInfo = async (req,res) => {
+    try{
+        const {game_id, username} = req.params;
+        const student = await Student.findOne({where: {username}})
+        const result = await Attempt.findOne({
+            where: {game_id, student_id: student.student_id}
+        })
+        res.status(201).json({student, result})
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: err})
     }
 }
 

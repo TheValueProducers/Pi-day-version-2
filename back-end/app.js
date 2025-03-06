@@ -39,10 +39,18 @@ io.on("connection", (socket) => {
     // Listen for game end
     socket.on("endGame", ({ gameId }) => {
         console.log(`Game ${gameId} has ended.`);
-        io.emit("gameEnded", { gameId }); // Broadcast game end event
+        io.to(gameId).emit("gameEnded", ({ gameId })); 
     });
 
-    socket.on("joinRoom",)
+    socket.on("startGame", ({gameId}) => {
+        io.to(gameId).emit("startGame")
+    })
+
+    socket.on("joinGame", ({game_id}) => {
+        socket.join(game_id)
+        console.log(`Room ${game_id} is joined successfully`);
+        
+    })
 
     socket.on("disconnect", () => {
         console.log(`Client disconnected: ${socket.id}`);

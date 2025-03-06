@@ -18,6 +18,11 @@ function CreateTest() {
         code: generateRandomCode()
     })
 
+    useEffect(() => {
+        console.log(formData);
+        console.log(parseInt(formData.hour));
+    }, [formData])
+
 
     
 
@@ -28,6 +33,12 @@ function CreateTest() {
 
     const handleSubmit = async (e) => {
         e.preventDefault();
+
+        if (parseInt(formData.hour) === 0 && parseInt(formData.minute) === 0 && parseInt(formData.second) === 0) {
+            alert("Invalid Duration");
+            return;
+        }
+        
         
         if (isNaN(formData.hour) || isNaN(formData.minute) || isNaN(formData.second)) {
             alert("Time duration must be numbers!");
@@ -54,7 +65,7 @@ function CreateTest() {
             if (response.status === 201) {
                 const {game_id} = response.data;
                 alert("Game started successfully!");
-                window.location.href = `/teacher/host-test/:${game_id}`
+                window.location.href = `/teacher/host-test/${game_id}`
             } else {
                 alert("Unexpected response. Please try again.");
             }

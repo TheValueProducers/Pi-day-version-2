@@ -1,14 +1,21 @@
 import React, {useState, useEffect} from "react";
-import {Link, Navigate} from "react-router-dom"
+import {Link, useNavigate} from "react-router-dom"
 import StudentNav from "../components/StudentNav";
 import Footer from "../components/Footer"
 import axios from "axios";
 
 
+
 function TestInstruction() {
+    const navigate = useNavigate();
     const [page, setPage] = useState("instruction")
     const [code, setCode] = useState("")
     const token = localStorage.getItem("token")
+    
+
+    
+
+   
 
     const handleSubmit = async () => {
         try {
@@ -31,6 +38,7 @@ function TestInstruction() {
             if (response.status === 201) {
                 alert("Game joined successfully");
                 const game_id = response.data.game_id;
+                
                 window.location.href = `/student/test/${game_id}`; // Or use navigate()
             }
     

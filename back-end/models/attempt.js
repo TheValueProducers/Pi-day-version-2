@@ -20,7 +20,7 @@ module.exports = (sequelize, DataTypes) => {
   });
 
   Attempt.associate = (models) => {
-    Attempt.belongsTo(models.Student, { foreignKey: 'student_id', onDelete: 'CASCADE' });
+    Attempt.belongsTo(models.Student, { foreignKey: 'student_id', onDelete: 'CASCADE', as: "students" });
     Attempt.belongsTo(models.Game, { foreignKey: 'game_id', onDelete: 'CASCADE' });
   };
 
