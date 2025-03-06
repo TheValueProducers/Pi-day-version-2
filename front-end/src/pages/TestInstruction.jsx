@@ -3,16 +3,42 @@ import {Link, Navigate} from "react-router-dom"
 import StudentNav from "../components/StudentNav";
 import Footer from "../components/Footer"
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+
 
 function TestInstruction() {
     const [page, setPage] = useState("instruction")
     const [code, setCode] = useState("")
-    const student_id = jwtDecode(localStorage.getItem("token")).student_id
+    const token = localStorage.getItem("token")
 
     const handleSubmit = async () => {
-        const response = await axios.post("http://localhost:4000/api/v2/student/join-game") 
-    }
+        try {
+            if (!token) {
+                alert("User is not authenticated. Please log in.");
+                return;
+            }
+    
+            const response = await axios.post(
+                "http://localhost:4000/api/v2/student/join-game",
+                {code}, // Empty body
+                { headers: { Authorization: `Bearer ${token}` } }
+            );
+
+            if (response.status === 404){
+                alert("Game is not found")
+                return
+            }
+    
+            if (response.status === 201) {
+                alert("Game joined successfully");
+                const game_id = response.data.game_id;
+                window.location.href = `/student/test/${game_id}`; // Or use navigate()
+            }
+    
+        } catch (err) {
+            console.error("Error joining game:", err.response?.data || err.message);
+            alert(err.response?.data?.message || "Failed to join game. Please try again.");
+        }
+    };
     
     
     
@@ -42,9 +68,9 @@ function TestInstruction() {
                             {page === "code" && 
                             <div className="flex flex-col item-center justify-center gap-8">
                                 <h1 className="font-medium text-white text-2xl text-center">Enter Code Here</h1>
-                                <textarea cols={30} rows={1} className=" bg-white border-2 border-gray-300 mx-auto p-3 text-xl resize-none text-center w-3/4" ></textarea>
+                                <textarea onChange = {e => setCode(e.target.value)} cols={30} rows={1} className=" bg-white border-2 border-gray-300 mx-auto p-3 text-xl resize-none text-center w-3/4" ></textarea>
 
-                                <Link onChange = {e => setCode(e.target.value)} to = "/student/test" className="w-2/3 mx-auto text-xl font-medium bg-[#8E74D0] text-white max-w[100px] py-3 rounded-xl cursor-pointer hover:bg-white transition-colors duration-400 ease-in-out text-center">Start Quiz</Link>
+                                <button  onClick={() => handleSubmit()} className="w-2/3 mx-auto text-xl font-medium bg-[#8E74D0] text-white max-w[100px] py-3 rounded-xl cursor-pointer hover:bg-white transition-colors duration-400 ease-in-out text-center">Start Quiz</button>
                             </div> }
                             
                     

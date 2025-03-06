@@ -21,6 +21,7 @@ function Register() {
     confirmPassword: "",
   });
 
+
   const handleChange = (e) => {
     const {name, value} = e.target;
     setFormData(prevValue => ({...prevValue, [name]: value}))
@@ -109,7 +110,7 @@ function Register() {
                   type="text"
                   name = "fullName"
                   onChange={handleChange}
-                  value = {formData.fullname}
+                  value = {formData.fullName}
                   placeholder="Enter Your Full Name"
                 />
 

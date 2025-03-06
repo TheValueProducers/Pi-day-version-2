@@ -11,6 +11,10 @@ module.exports = (sequelize, DataTypes) => {
     game_id: {
       type: DataTypes.UUID
     },
+    status: {
+      type: DataTypes.ENUM("in_game", "finished", "disqualified"),
+      allowNull: false
+    },
     answer: DataTypes.TEXT,
     
   });

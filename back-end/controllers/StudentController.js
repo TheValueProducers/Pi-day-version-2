@@ -9,57 +9,63 @@ const JWT_SECRET = process.env.JWT_SECRET
 exports.studentRegister  = async (req,res) => {
     try{
         const {username, password, fullName, email, yearGroup, classGroup} = req.body;
+        console.log(username, password, fullName, email, yearGroup, classGroup);
         const salt = await bcrypt.genSalt(10)
         const hashed_password = await bcrypt.hash(password, salt)
         const student = await Student.create({username, hashed_password, full_name: fullName, email, class: `${yearGroup}${classGroup}`})
         res.status(201).json({"message": "successful registration"})
     }catch(err){
-        res.status(500).json({"message": "error registration"})
+        console.error("Registration error:", err); // Log error in the console
+        res.status(500).json({"message": err.message || "error registration"});
     }
 }
 
-exports.studentLogin = async (req,res) => {
-    try{
-        const {username, password} = req.body;
-        const student = await Student.findOne({where: {username}})
+exports.studentLogin = async (req, res) => {
+    try {
+        const { username, password } = req.body;
+        console.log("Login attempt for:", username);
 
-        if (!student){
-            return res.status(400).json({"message": "invalid credentials"})
+        // Check if user exists
+        const student = await Student.findOne({ where: { username } });
+
+        if (!student) {
+            return res.status(400).json({ message: "Invalid credentials" });
         }
-        console.log("Im at password compare");
-        const password_matched = await bcrypt.compare(password, student.hashed_password)
-        console.log("Im after password compare");
-        if (!password_matched){
-            return res.status(400).json({"message": "wrong password"})
+
+        console.log("Comparing passwords...");
+        const passwordMatched = await bcrypt.compare(password, student.hashed_password);
+        if (!passwordMatched) {
+            return res.status(400).json({ message: "Wrong password" });
         }
-        console.log("I'm here");
-        const token  = jwt.sign({student_id: student.student_id, role: "student"}, JWT_SECRET)
-        return res.status(200).json({message: "login successful", token})
-        
-        
-    }catch(err){
-        return res.status(500).json({"message": "error registration"})
+
+        console.log("Generating JWT...");
+        const token = jwt.sign({ student_id: student.student_id, role: "student" }, JWT_SECRET);
+
+        console.log("Login successful for:", username);
+        return res.status(200).json({ message: "Login successful", token });
+
+    } catch (err) {
+        console.error("Login error:", err);
+        return res.status(500).json({ message: err.message || "Login failed. Please try again." });
     }
-}
+};
 
 
 exports.joinGame = async (req, res) => {
     try {
-        const { code, student_id } = req.body;
-        
-
+        const { code } = req.body;
+        const {student_id} = req.user;
         // ✅ Check if game exists
         const game = await Game.findOne({ where: { code } });
         if (!game) {
             return res.status(404).json({ message: "Game not found" });
         }
-
-        // ✅ Check if student is already in the game
+        const game_id = game.game_id;
+        const attempt = await Attempt.create({student_id, game_id, status: "in_game"})
         
 
         
-
-        return res.status(200).json({ message: "Game joined successfully", game });
+        return res.status(201).json({ message: "Game joined successfully", game_id });
 
     } catch (err) {
         console.error("Error joining game:", err);
@@ -75,7 +81,7 @@ exports.finishGame = async (req,res) => {
             res.status(400).json({"message": "game does not exist"})
         }
 
-       await Attempt.create({student_id, answer, game: game.game_id})
+       await Attempt.update({answer, status: "finished"}, {where: {student_id}})
 
         res.status(200).json({"message": "game joined successfully"})
 

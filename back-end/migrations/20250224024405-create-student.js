@@ -9,13 +9,12 @@ module.exports = {
       },
       username: {
         type: Sequelize.STRING(12),
-        allowNull: false,
-        unique: true
+        allowNull: false
       },
       class: {
         type: Sequelize.STRING(3),
         allowNull: false,
-        unique: true
+
       },
       
       hashed_password: Sequelize.TEXT,

@@ -17,7 +17,7 @@ function AdminNav() {
 
   const logOut = () => {
     localStorage.removeItem("token")
-    window.location.href = "/Linkdmin/sign-in"
+    window.location.href = "/admin/sign-in"
 
 }
 

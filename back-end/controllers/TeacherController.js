@@ -1,9 +1,10 @@
 require("dotenv").config()
-const {Teacher, Game, Attempt} = require('../models');
+const {Teacher, Game, Attempt, Student} = require('../models');
 
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET;
-const processPiResponses = require("../utils/piAnswerRanking")
+const processPiResponses = require("../utils/piAnswerRanking");
+const { where } = require("sequelize");
 
 
 
@@ -45,11 +46,12 @@ exports.startGame = async (req, res) => {
         Number(second);
 
 
-      
+        const checkNameUnique = await Game.findOne({where: {name}})
 
-        // ✅ Format duration
-       
-        // ✅ Create game entry
+        if(checkNameUnique){
+            res.status(400).json({message: "Game Name Already Existed"})
+        }
+      
         const game = await Game.create({
             name,
             duration: totalSeconds,
@@ -57,15 +59,18 @@ exports.startGame = async (req, res) => {
             status: "in_game",
             code
         });
-        console.log("almost success");
+
+        
+     
 
         // ✅ Check if game was created successfully
         if (!game) {
             console.log("fails");
             return res.status(500).json({ message: "Game creation failed" });
         }
+        
         console.log("success");
-        return res.status(201).json({ message: "Game created successfully", game });
+        return res.status(201).json({ message: "Game created successfully", game_id: game.game_id });
 
     } catch (err) {
         console.error("Error creating game:", err);
@@ -111,6 +116,30 @@ exports.showLeaderboard = async (req, res) => {
     }
 };
 
+exports.getGameInfo = async (req, res) => {
+    try {
+        let { game_id } = req.params; // Extract game_id from request parameters
+        game_id = game_id.replace(/^:/, ""); 
+
+        console.log(game_id);
+        
+        const game = await Game.findOne({where: {game_id}, include: Student })
+        
+        
+
+        // ✅ Check if the game exists
+        if (!game) {
+            return res.status(404).json({ message: "No students found" });
+        }
+
+        return res.status(200).json({ message: "Game fetched successfully", students: game.Students, code: game.dataValues.code, duration: game.dataValues.duration });
+
+    } catch (err) {
+        console.error("Error fetching game:", err);
+        return res.status(500).json({ message: "Internal Server Error", error: err.message });
+    }
+};
+
 exports.showGames = async (req, res) => {
     try {
         const { teacher_id } = req.user; // Extract from JWT middleware
@@ -127,5 +156,21 @@ exports.showGames = async (req, res) => {
         return res.status(500).json({ message: "Error retrieving games" });
     }
 };
+
+exports.endGame = async (res,res) => {
+    try{
+        const {game_id} = req.params;
+        if (!game_id){
+            res.status(404).json({"message": "Game does not exist"})
+        }
+        const updatedGame = await Game.update({status: "finished", where: {game_id} })
+        
+        
+
+    }catch(err){
+        console.log(err);
+        res.status(500).json({message: "Error processing end game"})
+    }
+}
 
 

@@ -25,6 +25,11 @@ module.exports = {
         onDelete: 'CASCADE',
         onUpdate: 'CASCADE'
       },
+      status: {
+        type: Sequelize.ENUM("in_game", "finished", "disqualified"),
+        allowNull: false
+
+      },
       answer: Sequelize.TEXT,
       
       createdAt: Sequelize.DATE,

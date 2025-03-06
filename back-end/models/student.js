@@ -27,7 +27,9 @@ module.exports = (sequelize, DataTypes) => {
   Student.associate = (models) => {
     
 
-    Student.hasMany(models.Attempt, { foreignKey: "student_id", onDelete: "CASCADE" });
+    Student.hasMany(models.Attempt, { foreignKey: "student_id", onDelete: "CASCADE", onUpdate: "CASCADE" });
+    Student.belongsToMany(models.Game, {through: models.Attempt,foreignKey: "student_id", onDelete: "CASCADE", onUpdate: "CASCADE" })
+
   };
 
   return Student;

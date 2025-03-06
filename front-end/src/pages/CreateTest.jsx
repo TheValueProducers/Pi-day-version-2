@@ -1,17 +1,15 @@
 import React, {useState, useEffect} from 'react'
 import TeacherNav from '../components/TeacherNav'
 import Footer from '../components/Footer';
-import {Navigate} from "react-router-dom"
+import {Navigate, Link} from "react-router-dom"
 import { generateRandomCode } from '../utils/utils';
 import axios from 'axios';
-
+import { jwtDecode } from 'jwt-decode';
 
 function CreateTest() {
 
-
-
-
     const token = localStorage.getItem("token")
+    
     const [formData, setFormData] = useState({
         name: "",
         hour: "",
@@ -54,8 +52,9 @@ function CreateTest() {
             );
     
             if (response.status === 201) {
+                const {game_id} = response.data;
                 alert("Game started successfully!");
-                <Navigate to = "/teacher/dashboard" />
+                window.location.href = `/teacher/host-test/:${game_id}`
             } else {
                 alert("Unexpected response. Please try again.");
             }

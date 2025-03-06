@@ -17,7 +17,7 @@ import UserAccount from "./pages/UserAccount"
 
 import ProtectedRoute from './components/ProtectedRoute'
 import UnProtectedRoute from './components/UnProtectedRoute'
-import NavBarTester from './pages/NavBarTester'
+
 import Contact from './pages/Contact'
 
 function App() {
@@ -90,7 +90,7 @@ function App() {
           }
         />
         <Route
-          path="/student/test"
+          path="/student/test/:game_id"
           element={
             <ProtectedRoute>
               <Test />
@@ -108,7 +108,7 @@ function App() {
         />
 
         <Route
-          path="/teacher/host-test"
+          path="/teacher/host-test/:game_id"
           element={
             <ProtectedRoute>
               <HostTest />

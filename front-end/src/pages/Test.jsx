@@ -1,16 +1,33 @@
 import React, {useState, useEffect} from "react";
-import StudentNav from "../components/StudentNav";
+
 import {Link, useNavigate} from "react-router-dom"
 
+const SOCKET_SERVER_URL = "http://localhost:4000"; // Update if needed
 
 function Test(){
-    const navigate = useNavigate()
+    const navigate = useNavigate();
+    const [socket, setSocket] = useState(null);
+
     const [outScreen, setOutScreen] = useState({
         out: true,
         attempt: 0
     })
     const [message, setMessage] = useState("Press F To Enter The Test! Please don't escape the screen until the test end.")
     
+
+    useEffect(() => {
+        const newSocket = io(SOCKET_SERVER_URL);
+        setSocket(newSocket);
+
+        // Listen for "gameEnded" event from the backend
+        newSocket.on("gameEnded", () => {
+            alert("The test has ended!");
+            navigate("/student/home"); // Redirect when test ends
+        });
+
+        return () => newSocket.disconnect(); // Cleanup on unmount
+    }, [navigate]);
+
     const changeMessage = (attempt) => {
         if (attempt === 1){
             setMessage(<p>First and Final Warning! Please Return To the Test Now!</p>)
@@ -21,6 +38,7 @@ function Test(){
             setTimeout(() => navigate("/student/home"), 2000);
         }
     }
+    
     const handleEscapeScreen = () => {
         
         if (!document.fullscreenElement &&
