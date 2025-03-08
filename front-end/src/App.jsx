@@ -14,6 +14,7 @@ import StudentData from "./pages/StudentData";
 import HostTest from "./pages/HostTest";
 import Leaderboard from "./pages/Leaderboard";
 import UserAccount from "./pages/UserAccount"
+import Home from "./pages/Home";
 
 import ProtectedRoute from './components/ProtectedRoute'
 import UnProtectedRoute from './components/UnProtectedRoute'
@@ -25,7 +26,7 @@ function App() {
 
     <Router>
       <Routes>
-        <Route path="/home"          element={<UnProtectedRoute><h1>This is home!!!</h1></UnProtectedRoute>} />
+        <Route path="/home"          element={<UnProtectedRoute><Home /></UnProtectedRoute>} />
         <Route path="/register"      element={<UnProtectedRoute><Register /></UnProtectedRoute>} />
         <Route path="/sign-in" element={<UnProtectedRoute><UserAuth /></UnProtectedRoute>} />
         <Route path="/contact" element={<UnProtectedRoute><Contact /></UnProtectedRoute>} />
@@ -37,7 +38,7 @@ function App() {
           path="/teacher/home"
           element={
             <ProtectedRoute>
-              <h1>This is home!!!</h1>
+              <Home />
             </ProtectedRoute>
           }
         />
@@ -45,7 +46,7 @@ function App() {
           path="/student/home"
           element={
             <ProtectedRoute>
-              <h1>This is home!!!</h1>
+              <Home />
             </ProtectedRoute>
           }
         />
@@ -144,7 +145,7 @@ function App() {
           path="/admin/home"
           element={
             <ProtectedRoute>
-              <h1>This is home!!!</h1>
+              <Home />
             </ProtectedRoute>
           }
         />

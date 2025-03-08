@@ -13,9 +13,11 @@ import piPyramids from "../assets/pi-pyramids.jpg";
 import piRandom from "../assets/pi-random.jpg";
 import piGoogle from "../assets/pi-google.jpg";
 import piHoliday from "../assets/pi-holiday.jpg";
+import { useLocation } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 
-import { motion, useScroll, useTransform  } from "framer-motion";
+import { motion, time, useScroll, useTransform  } from "framer-motion";
 import React, {useRef} from "react";
 
 import GeneralNav from '../components/GeneralNav'
@@ -29,11 +31,54 @@ import Footer from "../components/Footer";
 
 function Home() {
     const ref = useRef(null);
+    const location = useLocation();
+    const userLevel = location.pathname.split("/")[1]
+    
+
+    useEffect(() => {
+        if (location.hash) {
+          const element = document.getElementById(location.hash.substring(1)); // Remove #
+          if (element) {
+            element.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }
+      }, [location]);
+    const targetDate = new Date("2025-03-14T00:00:00").getTime(); // Pi Day
+
+  const calculateTimeLeft = () => {
+    const now = new Date().getTime();
+    const difference = targetDate - now;
+
+    if (difference <= 0) {
+      return {totalDays: "00" , totalHours: "00", totalMinutes: "00", totalSeconds: "00" }; // Timer reached
+    }
+
+    return {
+        totalDays: String(Math.floor(difference/(1000 * 60 * 60 * 24))).padStart(2, "0"),
+      totalHours: String(Math.floor(difference / (1000 * 60 * 60))%24).padStart(2, "0"), // Total hours
+      totalMinutes: String(Math.floor((difference / (1000 * 60)) % 60)).padStart(2, "0"), // Total minutes
+      totalSeconds: String(Math.floor((difference / 1000) % 60)).padStart(2, "0"), // Total seconds
+    };
+  };
+
+  const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setTimeLeft(calculateTimeLeft()); // ✅ This updates the state every second
+    }, 1000);
+
+    return () => clearInterval(timer); // ✅ Cleanup interval on unmount
+  }, []); 
     
     return ( 
     
   <div>
-    <GeneralNav/>
+     {userLevel === "home" && <GeneralNav/>}
+     {userLevel === "student" && <StudentNav/>}
+     {userLevel === "teacher" && <TeacherNav/>}
+     {userLevel === "admin" && <AdminNav/>}
+
 
             <div className="w-full min-h-screen py-24 flex flex-col justify-center items-center container mx-auto gap-12 bg-white ">
                 <header className="w-full flex overflow-x-hidden flex-col justify-center items-center gap-6 px-4">
@@ -70,16 +115,33 @@ function Home() {
                             </motion.div>
                         {/* Countdown Timer */}
                         <div className="flex items-center justify-center gap-3 md:gap-6">
+                            {/* Days */}
+                            <div className="flex flex-col items-center gap-2">
+                                <div className="flex items-center gap-2">
+                                    <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
+                                                    rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
+                                        <p>{timeLeft.totalDays.split("")[0]}</p>
+                                    </div>
+                                    <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
+                                                    rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
+                                        <p>{timeLeft.totalDays.split("")[1]}</p>
+                                    </div>
+                                </div>
+                                <p className="text-sm sm:text-md md:text-lg lg:text-xl text-[#8E74D0]">Days</p>
+                            </div>
+
+                            {/* Colon */}
+                            <p className="text-6xl md:text-8xl text-[#8E74D0] flex items-center">:</p>
                             {/* Hours */}
                             <div className="flex flex-col items-center gap-2">
                                 <div className="flex items-center gap-2">
                                     <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
                                                     rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
-                                        <p>1</p>
+                                        <p>{timeLeft.totalHours.split("")[0]}</p>
                                     </div>
                                     <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
                                                     rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
-                                        <p>1</p>
+                                        <p>{timeLeft.totalHours.split("")[1]}</p>
                                     </div>
                                 </div>
                                 <p className="text-sm sm:text-md md:text-lg lg:text-xl text-[#8E74D0]">Hours</p>
@@ -93,11 +155,11 @@ function Home() {
                                 <div className="flex items-center gap-2">
                                     <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
                                                     rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
-                                        <p>1</p>
+                                        <p>{timeLeft.totalMinutes.split("")[0]}</p>
                                     </div>
                                     <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
                                                     rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
-                                        <p>1</p>
+                                        <p>{timeLeft.totalMinutes.split("")[1]}</p>
                                     </div>
                                 </div>
                                 <p className="text-sm sm:text-md md:text-lg lg:text-xl text-[#8E74D0]">Minutes</p>
@@ -111,11 +173,11 @@ function Home() {
                                 <div className="flex items-center gap-2">
                                     <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
                                                     rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
-                                        <p>1</p>
+                                        <p>{String(timeLeft.totalSeconds).split("")[0]}</p>
                                     </div>
                                     <div className="flex items-center justify-center text-[#8E74D0] text-6xl md:text-8xl bg-[#381F4E] 
                                                     rounded-lg px-6 py-4 w-16 h-20 md:h-36 sm:w-20 md:w-24 lg:w-28">
-                                        <p>1</p>
+                                        <p>{String(timeLeft.totalSeconds).split("")[1]}</p>
                                     </div>
                                 </div>
                                 <p className="text-sm sm:text-md md:text-lg lg:text-xl text-[#8E74D0]">Seconds</p>
@@ -147,7 +209,7 @@ function Home() {
             </div>
 
             {/* About Pi Day Section */}
-            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6">
+            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6" id="about-pi-day">
                 <div className="w-full mb-12 sm:mb-16 md:mb-24">
                         <p className="text-3xl sm:text-5xl md:text-6xl text-center font-semibold bg-gradient-to-r from-[#1789FC] to-[#FC60A8] text-transparent bg-clip-text py-4">
                             About Pi Day
@@ -183,7 +245,7 @@ function Home() {
             </div>
 
             {/* Pi Day Competition Section */}
-            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6">
+            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6" id="pi-day-comp">
                 
                 {/* Title */}
                 <div className="w-full mb-12 sm:mb-16 md:mb-24">
@@ -227,7 +289,7 @@ function Home() {
             </div>
 
             {/* Did You Know Section */}
-            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6">
+            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6" id ="fun-facts">
                 {/* Section Title */}
                 <div className="w-full mb-12 sm:mb-16 md:mb-24 flex flex-col items-center justify-center gap-4">
                     <p className="text-3xl sm:text-5xl md:text-6xl text-center font-semibold bg-gradient-to-r from-[#1789FC] to-[#FC60A8] text-transparent bg-clip-text py-4">
@@ -344,7 +406,7 @@ function Home() {
             </div>
 
             {/* Meet the Team Section */}
-            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6 ">
+            <div className="w-full min-h-screen flex flex-col justify-center items-center container mx-auto gap-12 bg-white py-16 sm:py-24 md:py-32 px-6 " id="our-team">
             <div className="w-full mb-12 sm:mb-16 md:mb-24 flex flex-col items-center justify-center gap-4">
                 <p className="text-3xl sm:text-5xl md:text-6xl text-center font-semibold bg-gradient-to-r from-[#1789FC] to-[#FC60A8] text-transparent bg-clip-text py-4">
                     BVIS Tech Committee
