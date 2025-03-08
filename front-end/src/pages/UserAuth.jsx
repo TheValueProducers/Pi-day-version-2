@@ -34,6 +34,8 @@ function UserAuth() {
             if (response.status === 200) {
                 localStorage.setItem("token", response.data.token);
                 alert("Logged in successfully");
+                localStorage.setItem("status", "out_game")
+                localStorage.setItem("username", username)
 
                 // ✅ Use navigate instead of window.location.href
                 navigate(`/${role}/home`);

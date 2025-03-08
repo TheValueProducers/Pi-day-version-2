@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import galaxyBG from "../assets/galaxybg.jpg";
 import Footer from "../components/Footer";
 import GeneralNav from "../components/GeneralNav";
@@ -11,6 +11,7 @@ import {
 } from "@heroicons/react/24/solid";
 
 function Register() {
+  
   const [formData, setFormData] = useState({
     username: "",
     email: "",
@@ -20,6 +21,7 @@ function Register() {
     password: "",
     confirmPassword: "",
   });
+  const navigate = useNavigate()
 
 
   const handleChange = (e) => {
@@ -57,7 +59,7 @@ function Register() {
         const response = await axios.post("http://localhost:4000/api/v2/student/register", formData);
         if (response.status === 201) {
             alert("Account created successfully!");
-            window.location.href = "/sign-in"
+            navigate("/sign-in")
         }
     } catch (err) {
         alert(err.response?.data?.message || "Registration failed. Please try again.");

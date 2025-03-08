@@ -71,7 +71,7 @@ function TestTable() {
                             {users.length > 0 && users.map(user => {
                                 return (<tr className="odd:bg-white bg-gray-300">
                                     <td className="py-4 text-xs  sm:text-sm md:text-xl text-center">{user.rank}</td>
-                                    <td className="py-4 text-xs  sm:text-sm md:text-xl text-center"><Link to = {`/${userLevel}/leaderboard/${className}/${user.username}`}>{user.username}</Link></td>
+                                    <td className="py-4 text-xs  sm:text-sm md:text-xl text-center"><Link to = {`/${userLevel}/leaderboard/${className}/${user.attempt_id}`}>{user.username}</Link></td>
                                     <td className="py-4 text-xs  sm:text-sm md:text-xl text-center">{user.correct_digits}</td>
                                         </tr>)
                                 })}  

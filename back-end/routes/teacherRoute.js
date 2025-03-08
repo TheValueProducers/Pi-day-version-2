@@ -9,7 +9,7 @@ router.post("/show-leaderboard", verifyToken, showLeaderboard)
 router.get("/get-games/:game_id", verifyToken, getGameInfo)
 router.post("/sign-in", teacherLogin)
 router.post("/start-game", verifyToken, startGame)
-router.get("/get-student-info/:game_id/:username", verifyToken, getStudentInfo)
+router.get("/get-student-info/:attempt_id", verifyToken, getStudentInfo)
 
 
 

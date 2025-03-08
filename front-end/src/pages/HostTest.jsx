@@ -12,21 +12,52 @@ function HostTest() {
     const [code, setCode] = useState("");
     const [time, setTime] = useState(0); // Default to 0 seconds
     const [status, setStatus] = useState(false);
-    const [students, setStudents] = useState([]);
+    const [students, setStudents] = useState(null);
     const token = localStorage.getItem("token");
     const { game_id } = useParams();
     const [socket, setSocket] = useState(null);
     const navigate = useNavigate();
 
+    useEffect(() => {
+        let game_status = localStorage.getItem("game_status");
+        console.log(game_status);
+
+        if (game_status === null) {
+            localStorage.setItem("game_status", JSON.stringify(false));
+            setStatus(false);
+        } else {
+            setStatus(JSON.parse(game_status)); // Convert string to boolean
+        }
+      
+            
+            }, [])
+
     function startGame() {
         setStatus(true);
+        localStorage.setItem("game_status", JSON.stringify(true))
         if (socket) {
-            socket.emit("startGame", { gameId: game_id });
+            socket.emit("startGame", { gameId: game_id, duration: time });
         }
     }
     useEffect(() => {
         const newSocket = io(SOCKET_SERVER_URL);
         setSocket(newSocket);
+        
+        newSocket.emit("hostJoin", {gameId: game_id})
+        newSocket.on("updateTime", ({duration}) => {
+            setTime(duration)
+        })
+
+        newSocket.on("gameEnded", () => {
+            localStorage.setItem("status", "out_game")
+            localStorage.removeItem("game_id")
+            navigate("/teacher/home")
+        })
+
+        newSocket.on("studentInfo", ({info}) => {
+            console.log((info));
+            setStudents(info)
+    })
 
         return () => {
             newSocket.disconnect(); // Cleanup on unmount
@@ -44,7 +75,7 @@ function HostTest() {
 
                 if (response.status === 200) {
                     setCode(response.data.code);
-                    setStudents(response.data.students);
+                    
                     setTime(response.data.duration); // Time in seconds
                 }
             } catch (err) {
@@ -55,23 +86,23 @@ function HostTest() {
     }, [game_id, token]);
 
     
-    // Timer countdown effect
-    useEffect(() => {
-        let timer;
-        if (status && time > 0) {
-            timer = setInterval(() => {
-                setTime((prevTime) => {
-                    if (prevTime <= 1) {
-                        clearInterval(timer);
-                        endGame(); // Call endGame when time reaches 0
-                    }
-                    return prevTime - 1;
-                });
-            }, 1000);
-        }
+    // // Timer countdown effect
+    // useEffect(() => {
+    //     let timer;
+    //     if (status && time > 0) {
+    //         timer = setInterval(() => {
+    //             setTime((prevTime) => {
+    //                 if (prevTime <= 1) {
+    //                     clearInterval(timer);
+    //                     endGame(); // Call endGame when time reaches 0
+    //                 }
+    //                 return prevTime - 1;
+    //             });
+    //         }, 1000);
+    //     }
 
-        return () => clearInterval(timer);
-    }, [status, time]);
+    //     return () => clearInterval(timer);
+    // }, [status, time]);
 
 
     
@@ -80,6 +111,9 @@ function HostTest() {
         if (socket) {
             socket.emit("endGame", { gameId: game_id });
         }
+        localStorage.setItem("status", "out_game")
+        localStorage.removeItem("game_id")
+        localStorage.removeItem("game_status")
         navigate("/teacher/home")
     };;
 
@@ -121,13 +155,13 @@ function HostTest() {
                         {/* Scrollable User Grid */}
                         <div className="w-full max-w-5xl h-[400px] overflow-y-auto border-[0] rounded-lg p-4 ">
                             <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
-                                {students.length > 0 && students.map((student, index) => (
+                                {students && students.map((student, index) => (
                                     <div
                                         key={index}
                                         className="p-6 bg-[#352374] rounded-lg text-center text-white font-medium text-2xl flex items-center justify-center h-20 overflow-hidden"
                                     >
                                         <p className="w-full px-2 text-ellipsis overflow-hidden whitespace-nowrap">
-                                            {student.username}
+                                            {student}
                                         </p>
                                     </div>
                                 ))}

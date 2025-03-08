@@ -12,13 +12,13 @@ function StudentData() {
     const [data, setData] = useState({})
     const location = useLocation();
     const previousLocation = location.pathname.split("/").slice(0, -1).join("/");
-    const {game_id, username} = useParams()
+    const {attempt_id} = useParams()
     const token = localStorage.getItem("token")
     const userLevel = useLocation().pathname[1]
     
     const fetchData = async () => {
         try{
-            const response = await axios.get(`http://localhost:4000/api/v2/teacher/get-student-info/${game_id}/${username}`,{
+            const response = await axios.get(`http://localhost:4000/api/v2/teacher/get-student-info/${attempt_id}`,{
                 headers: {
                     Authorization: `Bearer ${token}`, // ✅ Send token in headers
                 },
@@ -53,7 +53,7 @@ function StudentData() {
                     
                    <div className="w-3/4 flex flex-col items-center justify-center gap-8 bg-white rounded-lg py-8">
                  
-                        <h1 className='text-lg md:text-2xl font-medium text-center'>{`${username}'s Response`}</h1>
+                        <h1 className='text-lg md:text-2xl font-medium text-center'>{`${data.username}'s Response`}</h1>
 
                         
                         <div className='w-4/5 flex flex-col items-center justify-center gap-8  '>

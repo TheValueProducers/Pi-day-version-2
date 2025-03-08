@@ -1,14 +1,17 @@
 import React, {useState, useEffect} from 'react'
 import TeacherNav from '../components/TeacherNav'
 import Footer from '../components/Footer';
-import {Navigate, Link} from "react-router-dom"
+import {Navigate, useNavigate, Link} from "react-router-dom"
 import { generateRandomCode } from '../utils/utils';
 import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
 function CreateTest() {
+    const navigate = useNavigate()
 
     const token = localStorage.getItem("token")
+
+    
     
     const [formData, setFormData] = useState({
         name: "",
@@ -23,6 +26,8 @@ function CreateTest() {
         console.log(parseInt(formData.hour));
     }, [formData])
 
+    
+    
 
     
 
@@ -64,8 +69,10 @@ function CreateTest() {
     
             if (response.status === 201) {
                 const {game_id} = response.data;
+                localStorage.setItem("status", "in_game")
+                localStorage.setItem("game_id", game_id)
                 alert("Game started successfully!");
-                window.location.href = `/teacher/host-test/${game_id}`
+                navigate(`/teacher/host-test/${game_id}`)
             } else {
                 alert("Unexpected response. Please try again.");
             }
@@ -173,7 +180,7 @@ function CreateTest() {
                                     </div>
 
                                     {/* Start Button */}
-                                    <button className="w-full bg-[#8E74D0] text-white py-3 rounded-md text-lg font-semibold hover:bg-[#7A5EB0] transition">
+                                    <button  className="w-full bg-[#8E74D0] text-white py-3 rounded-md text-lg font-semibold hover:bg-[#7A5EB0] transition">
                                     Host Quiz
                                     </button>
                                 </form>

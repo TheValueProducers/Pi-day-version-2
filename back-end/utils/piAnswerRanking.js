@@ -15,6 +15,7 @@ function processPiResponses(responses) {
             const PI_DIGITS = data.replace(/\s+/g, '').substring(0, 15000);
             
             function countCorrectDigits(userAnswer) {
+                if (!userAnswer) return 0
                 for (let i = 0; i < userAnswer.length; i++) {
                     if (userAnswer[i] !== PI_DIGITS[i]) {
                         return i; // Return the number of correct digits
@@ -23,9 +24,9 @@ function processPiResponses(responses) {
                 return userAnswer.length; // If all are correct
             }
 
-            let results = responses.map(({ student_id, username, answer }) => {
+            let results = responses.map(({ attempt_id, student_id, username, answer }) => {
                 const correct_digits = countCorrectDigits(answer);
-                return { student_id, username, answer, correct_digits };
+                return { attempt_id, student_id, username, answer, correct_digits };
             });
 
             // Sort results based on correct_digits in descending order

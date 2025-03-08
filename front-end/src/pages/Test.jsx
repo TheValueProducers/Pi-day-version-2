@@ -13,17 +13,32 @@ function Test() {
     const [socket, setSocket] = useState(null);
     const token = localStorage.getItem("token");
     const [blur, setBlur] = useState(true);
+    const [time, setTime] = useState(0)
+    const [username, setUsername] = useState(localStorage.getItem("username"))
 
     // Update ref whenever answer changes
+
+
+    useEffect(() => {
+        let game_blur = localStorage.getItem("blur");
+    
+        if (game_blur === null) {
+            localStorage.setItem("blur", JSON.stringify(true));
+            setBlur(true); // ✅ Ensure state reflects stored value
+        } else {
+            setBlur(JSON.parse(game_blur)); // ✅ Convert string to boolean
+        }
+    }, []);
     useEffect(() => {
         answerRef.current = answer;
     }, [answer]);
+   
 
     useEffect(() => {
         const newSocket = io(SOCKET_SERVER_URL);
         setSocket(newSocket);
 
-        newSocket.emit("joinGame", { game_id });
+        newSocket.emit("joinGame", { game_id, username });
 
         const handleGameEnded = () => {
             console.log("Game ended, submitting answer:", answerRef.current);
@@ -31,25 +46,32 @@ function Test() {
         };
 
         newSocket.on("gameEnded", handleGameEnded);
-        newSocket.on("startGame", () => setBlur(false));
+        newSocket.on("startGame", () => {
+            setBlur(false)
+            localStorage.setItem("blur", JSON.stringify(false))
+    });
+        newSocket.on("updateTime", ({duration}) => setTime(duration) )
 
         return () => {
-            newSocket.off("gameEnded", handleGameEnded);
+            newSocket.off("gameEnded", handleGameEnded)
             newSocket.off("startGame");
             newSocket.disconnect();
         };
     }, [game_id]);
+
+    const formatTime = (seconds) => {
+        const h = Math.floor(seconds / 3600).toString().padStart(2, '0');
+        const m = Math.floor((seconds % 3600) / 60).toString().padStart(2, '0');
+        const s = (seconds % 60).toString().padStart(2, '0');
+        return `${h}:${m}:${s}`;
+    };
 
     const preventPaste = (event) => event.preventDefault();
 
     const handleSubmit = async (finalAnswer) => {
         console.log("Final Answer Before Submission:", finalAnswer); // ✅ Should log the latest answer
 
-        if (!finalAnswer.trim()) {
-            alert("Answer cannot be empty.");
-            return;
-        }
-
+      
         try {
             const response = await axios.put(
                 "http://localhost:4000/api/v2/student/end-game",
@@ -61,7 +83,12 @@ function Test() {
                 }
             );
 
-            if (response.status === 200) navigate("/student/home");
+            if (response.status === 200){
+                localStorage.setItem("status", "out_game")
+                localStorage.removeItem("game_id")
+                localStorage.removeItem("blur")
+                navigate("/student/home");
+            } 
         } catch (err) {
             console.error("Error submitting game result:", err);
             alert("Error submitting game result: " + err.message);
@@ -78,14 +105,7 @@ function Test() {
             <div className="flex flex-col items-center justify-center container mx-auto w-full min-h-screen gap-20 py-20">
                 <div className="flex w-full justify-center items-center md:justify-start">
                     <div className="border-6 flex justify-center items-center rounded-lg border-[#3b2b63] text-4xl md:text-5xl p-2 space-x-2 bg-white md:ml-8">
-                        <span>0</span>
-                        <span>0</span>
-                        <span>:</span>
-                        <span>0</span>
-                        <span>0</span>
-                        <span>:</span>
-                        <span>0</span>
-                        <span>0</span>
+                        {formatTime(time)}
                     </div>
                 </div>
                 <div className="w-full flex flex-col justify-center items-center gap-12 py-8">

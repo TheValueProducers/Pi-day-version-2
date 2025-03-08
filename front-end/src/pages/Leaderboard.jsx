@@ -1,8 +1,32 @@
-import React from "react";
+import React, {useState, useEffect} from "react";
 import StudentNav from "../components/StudentNav";
 import Footer from "../components/Footer";
+import axios from "axios";
 
 const Leaderboard = () => {
+  const [students, setStudents] = useState()
+  const token = localStorage.getItem("token")
+
+  useEffect(() => {
+    const fetchTable = async () => {
+      try {
+        const response = await axios.post(`http://localhost:4000/api/v2/teacher/show-leaderboard`, {game_id: "all"}, {
+          headers: {
+            Authorization: `Bearer ${token}`, // ✅ Send token in headers
+        }
+        });
+        if (response.data && response.data.attempts.length > 0) {
+          setStudents(response.data.attempts); // Ensure you're setting the actual data
+        }
+      } catch (error) {
+        alert("Error fetching games:", error);
+      }
+    };
+
+    fetchTable();
+  }, [])
+  
+  
   // 🔹 Sample test data for leaderboard rankings
   const users = [
     { name: "Alice Johnson", piNumCorrect: 150 },
@@ -44,11 +68,11 @@ const Leaderboard = () => {
 
         {/* Scrollable Table Body */}
         <tbody className="divide-y divide-gray-300">
-          {users.map((user, index) => (
+          {students && students.map((user, index) => (
             <tr key={index} className="text-lg md:text-xl bg-white hover:bg-gray-100">
               <td className="py-4 px-6 w-1/5 font-semibold">{index === 0 ? "🥇" : index === 1 ? "🥈" : index === 2 ? "🥉" : index + 1}</td>
-              <td className="py-4 px-6 w-2/5">{user.name}</td>
-              <td className="py-4 px-6 w-1/5 font-semibold text-center text-[#8E74D0]">{user.piNumCorrect}</td>
+              <td className="py-4 px-6 w-2/5">{user.username}</td>
+              <td className="py-4 px-6 w-1/5 font-semibold text-center text-[#8E74D0]">{user.correct_digits}</td>
             </tr>
           ))}
         </tbody>

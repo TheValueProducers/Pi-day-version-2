@@ -133,7 +133,7 @@ function App() {
           }
         />
         <Route
-          path="/teacher/leaderboard/:game_id/:username"
+          path="/teacher/leaderboard/:game_id/:attempt_id"
           element={
             <ProtectedRoute>
               <StudentData />

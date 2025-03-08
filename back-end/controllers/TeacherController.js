@@ -3,7 +3,7 @@ const {Teacher, Game, Attempt, Student} = require('../models');
 
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET;
-const {Op} = require("sequelize")
+const {Op, where} = require("sequelize")
 const processPiResponses = require("../utils/piAnswerRanking");
 
 
@@ -71,7 +71,7 @@ exports.startGame = async (req, res) => {
         }
         
         console.log("success");
-        return res.status(201).json({ message: "Game created successfully", game_id: game.game_id });
+        return res.status(201).json({ message: "Game created successfully", game_id: game.game_id});
 
     } catch (err) {
         console.error("Error creating game:", err);
@@ -181,16 +181,12 @@ exports.getGameInfo = async (req, res) => {
 
         console.log(game_id);
         
-        const game = await Game.findOne({where: {game_id}, include: Student })
-        
-        
+        const game = await Game.findOne({where: {game_id}, include: {
+            model: Student,
+            as: "students"
+        } })
 
-        // ✅ Check if the game exists
-        if (!game) {
-            return res.status(404).json({ message: "No students found" });
-        }
-
-        return res.status(200).json({ message: "Game fetched successfully", students: game.Students, code: game.dataValues.code, duration: game.dataValues.duration });
+        return res.status(200).json({ message: "Game fetched successfully", students: game.students, code: game.dataValues.code, duration: game.dataValues.duration });
 
     } catch (err) {
         console.error("Error fetching game:", err);
@@ -235,12 +231,16 @@ exports.endGame = async (req,res) => {
 
 exports.getStudentInfo = async (req,res) => {
     try{
-        const {game_id, username} = req.params;
-        const student = await Student.findOne({where: {username}})
+        const {attempt_id} = req.params;
+        console.log(attempt_id);
         const result = await Attempt.findOne({
-            where: {game_id, student_id: student.student_id}
+            where: {attempt_id},
+            include: {
+                model: Student,
+                as: "students"
+            }
         })
-        res.status(201).json({student, result})
+        res.status(201).json({student: result.students, result})
 
     }catch(err){
         console.log(err);

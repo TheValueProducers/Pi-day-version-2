@@ -60,6 +60,10 @@ function StudentNav() {
 
   const logOut = () => {
     localStorage.removeItem("token")
+    localStorage.removeItem("status")
+    localStorage.removeItem("game_id")
+    localStorage.removeItem("username")
+    localStorage.removeItem("blur")
     window.location.href = "/sign-in"
 
   }
