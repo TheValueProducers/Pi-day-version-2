@@ -16,8 +16,8 @@ import Leaderboard from "./pages/Leaderboard";
 import UserAccount from "./pages/UserAccount"
 import Home from './pages/Home'
 
-import ProtectedRoute from './components/ProtectedRoute'
-import UnProtectedRoute from './components/UnProtectedRoute'
+// import  from './components/'
+// import  from './components/'
 import NavBarTester from './pages/NavBarTester'
 import Contact from './pages/Contact'
 
@@ -26,167 +26,167 @@ function App() {
 
     <Router>
       <Routes>
-        <Route path="/home"         element={<UnProtectedRoute><Home/></UnProtectedRoute>} />
-        <Route path="/register"      element={<UnProtectedRoute><Register /></UnProtectedRoute>} />
-        <Route path="/sign-in" element={<UnProtectedRoute><UserAuth /></UnProtectedRoute>} />
-        <Route path="/contact" element={<UnProtectedRoute><Contact /></UnProtectedRoute>} />
-        <Route path="/admin/sign-in" element={<UnProtectedRoute><AdminAuth /></UnProtectedRoute>} />
+        <Route path="/home"         element={<><Home/></>} />
+        <Route path="/register"      element={<><Register /></>} />
+        <Route path="/sign-in" element={<><UserAuth /></>} />
+        <Route path="/contact" element={<><Contact /></>} />
+        <Route path="/admin/sign-in" element={<><AdminAuth /></>} />
         {/* Not protected */}
 
         {/* Protected Routes */}
         <Route
           path="/teacher/home"
           element={
-            <ProtectedRoute>
+            <>
               <h1>This is home!!!</h1>
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/student/home"
           element={
-            <ProtectedRoute>
+            <>
               <h1>This is home!!!</h1>
-            </ProtectedRoute>
+            </>
           }
         />
                 <Route
           path="/student/user-account"
           element={
-            <ProtectedRoute>
+            <>
               <UserAccount/>
-            </ProtectedRoute>
+            </>
           }
         />
                 <Route
           path="/teacher/user-account"
           element={
-            <ProtectedRoute>
+            <>
               <UserAccount/>
-            </ProtectedRoute>
+            </>
           }
         />
           <Route
           path="/admin/user-account"
           element={
-            <ProtectedRoute>
+            <>
                <UserAccount/>
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/student/leaderboard"
           element={
-            <ProtectedRoute>
+            <>
               <Leaderboard/>
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/student/test-instruction"
           element={
-            <ProtectedRoute>
+            <>
               <TestInstruction />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/student/test"
           element={
-            <ProtectedRoute>
+            <>
               <Test />
-            </ProtectedRoute>
+            </>
           }
         />
 
         <Route
           path="/teacher/create-test"
           element={
-            <ProtectedRoute>
+            <>
               <CreateTest />
-            </ProtectedRoute>
+            </>
           }
         />
 
         <Route
           path="/teacher/host-test"
           element={
-            <ProtectedRoute>
+            <>
               <HostTest />
-            </ProtectedRoute>
+            </>
           }
         />
 
         <Route
           path="/teacher/leaderboard"
           element={
-            <ProtectedRoute>
+            <>
               <TestDashboard />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/teacher/leaderboard/:class"
           element={
-            <ProtectedRoute>
+            <>
               <TestTable />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/teacher/leaderboard/:class/:student_id"
           element={
-            <ProtectedRoute>
+            <>
               <StudentData />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/admin/home"
           element={
-            <ProtectedRoute>
+            <>
               <h1>This is home!!!</h1>
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/admin/setting"
           element={
-            <ProtectedRoute>
+            <>
               <ManageAccount />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/admin/create-account"
           element={
-            <ProtectedRoute>
+            <>
               <CreateAccount />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/admin/leaderboard"
           element={
-            <ProtectedRoute>
+            <>
               <TestDashboard />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/admin/leaderboard/:class"
           element={
-            <ProtectedRoute>
+            <>
               <TestTable />
-            </ProtectedRoute>
+            </>
           }
         />
         <Route
           path="/admin/leaderboard/:class/:student_id"
           element={
-            <ProtectedRoute>
+            <>
               <StudentData />
-            </ProtectedRoute>
+            </>
           }
         />
       </Routes>
