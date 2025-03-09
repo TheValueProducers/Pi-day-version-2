@@ -99,7 +99,7 @@ function TeacherNav() {
               <Link to="/teacher/create-test" className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Create Test</Link>
               <Link to="/teacher/leaderboard" className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Dashboard</Link>
               <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</Link>
-              <Link onClick={() => logOut()} className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> My Account</Link>
+              <Link onClick={() => logOut()} className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Log Out</Link>
               
 
               

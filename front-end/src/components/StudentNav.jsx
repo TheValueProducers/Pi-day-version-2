@@ -104,7 +104,7 @@ function StudentNav() {
               <Link to = "/student/test-instruction" className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Test</Link>
               <Link to = "/student/leaderboard" className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Leaderboard</Link>
               <Link className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</Link>
-              <Link onClick = {() => logOut()} className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> My Account</Link>
+              <Link onClick = {() => logOut()} className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Log Out</Link>
               
 
               
