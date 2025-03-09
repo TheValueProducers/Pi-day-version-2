@@ -17,7 +17,7 @@ let students = []; // Array to track game sessions and participants
 
 // Configure CORS
 app.use(cors({
-    origin: "http://localhost:3000",
+    origin: "https://pi-day-v2.onrender.com",
     credentials: true
 }));
 
@@ -30,7 +30,7 @@ app.use("/api/v2", router);
 // Initialize Socket.io
 const io = new Server(server, {
     cors: {
-        origin: "http://localhost:3000",
+        origin: "https://pi-day-v2.onrender.com",
         methods: ["GET", "POST"]
     }
 });
@@ -182,6 +182,6 @@ io.on("connection", (socket) => {
 });
 
 // Start server
-server.listen(PORT, () => {
+server.listen(PORT, "0.0.0.0", () => {  // ✅ Bind to "0.0.0.0" for external access
     console.log(`Server is running on port ${PORT}`);
 });
