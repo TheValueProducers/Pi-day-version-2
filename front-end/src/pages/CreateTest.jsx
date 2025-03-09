@@ -55,7 +55,7 @@ function CreateTest() {
             console.log("Submitting form:", formData);
     
             const response = await axios.post(
-                "http://localhost:4000/api/v2/teacher/start-game",
+                "https://pi-day-version-2.onrender.com/api/v2/teacher/start-game",
                 formData,
                 {
                     headers: {

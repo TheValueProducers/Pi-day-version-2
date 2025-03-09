@@ -32,7 +32,7 @@ const CreateAccount = () => {
         }
 
         try {
-            const response = await axios.post("http://localhost:4000/api/v2/admin/create-account", {
+            const response = await axios.post("https://pi-day-version-2.onrender.com/api/v2/admin/create-account", {
                 username,
                 password,
                 full_name: realName,

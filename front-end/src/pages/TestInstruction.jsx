@@ -23,7 +23,7 @@ function TestInstruction() {
 
         try {
             const response = await axios.post(
-                "http://localhost:4000/api/v2/student/join-game",
+                "https://pi-day-version-2.onrender.com/api/v2/student/join-game",
                 { code }, // ✅ Corrected to send properly
                 { headers: { Authorization: `Bearer ${token}` } }
             );

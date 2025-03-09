@@ -17,7 +17,7 @@ function AdminAuth() {
     e.preventDefault(); // Prevent page refresh
 
     try {
-      const response = await axios.post("http://localhost:4000/api/v2/admin/login", {
+      const response = await axios.post("https://pi-day-version-2.onrender.com/api/v2/admin/login", {
         username,
         password
       });

@@ -56,7 +56,7 @@ function Register() {
     }
   
     try {
-        const response = await axios.post("http://localhost:4000/api/v2/student/register", formData);
+        const response = await axios.post("https://pi-day-version-2.onrender.com/api/v2/student/register", formData);
         if (response.status === 201) {
             alert("Account created successfully!");
             navigate("/sign-in")

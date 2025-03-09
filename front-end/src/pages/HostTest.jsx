@@ -6,7 +6,7 @@ import { ArrowLongLeftIcon } from "@heroicons/react/24/solid";
 import axios from 'axios';
 import { io } from "socket.io-client";
 
-const SOCKET_SERVER_URL = "http://localhost:4000";
+const SOCKET_SERVER_URL = "https://pi-day-version-2.onrender.com";
 
 function HostTest() {
     const [code, setCode] = useState("");
@@ -67,7 +67,7 @@ function HostTest() {
     useEffect(() => {
         const fetchGame = async () => {
             try {
-                const response = await axios.get(`http://localhost:4000/api/v2/teacher/get-games/${game_id}`, {
+                const response = await axios.get(`https://pi-day-version-2.onrender.com/api/v2/teacher/get-games/${game_id}`, {
                     headers: {
                         Authorization: `Bearer ${token}`, // ✅ Send token in headers
                     },

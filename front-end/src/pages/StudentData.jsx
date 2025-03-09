@@ -18,7 +18,7 @@ function StudentData() {
     
     const fetchData = async () => {
         try{
-            const response = await axios.get(`http://localhost:4000/api/v2/teacher/get-student-info/${attempt_id}`,{
+            const response = await axios.get(`https://pi-day-version-2.onrender.com/api/v2/teacher/get-student-info/${attempt_id}`,{
                 headers: {
                     Authorization: `Bearer ${token}`, // ✅ Send token in headers
                 },

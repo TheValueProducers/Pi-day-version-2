@@ -9,7 +9,7 @@ const ManageAccount = () => {
     useEffect(() => {
         const fetchData = async () => {
             try {
-                const response = await axios.get("http://localhost:4000/api/v2/admin/display-account", {
+                const response = await axios.get("https://pi-day-version-2.onrender.com/api/v2/admin/display-account", {
                     headers: {
                         Authorization: `Bearer ${token}`, // ✅ Send token in headers
                     }

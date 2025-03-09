@@ -3,7 +3,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 import { io } from "socket.io-client";
 
-const SOCKET_SERVER_URL = "http://localhost:4000";
+const SOCKET_SERVER_URL = "https://pi-day-version-2.onrender.com";
 
 function Test() {
     const navigate = useNavigate();
@@ -74,7 +74,7 @@ function Test() {
       
         try {
             const response = await axios.put(
-                "http://localhost:4000/api/v2/student/end-game",
+                "https://pi-day-version-2.onrender.com/api/v2/student/end-game",
                 { game_id, answer: finalAnswer }, // ✅ Ensuring latest answer is sent
                 {
                     headers: {

@@ -21,7 +21,7 @@ function TestTable() {
     useEffect(() => {
         const fetchTable = async () => {
           try {
-            const response = await axios.post(`http://localhost:4000/api/v2/teacher/show-leaderboard`, {game_id: game_id}, {
+            const response = await axios.post(`https://pi-day-version-2.onrender.com/api/v2/teacher/show-leaderboard`, {game_id: game_id}, {
               headers: {
                 Authorization: `Bearer ${token}`, // ✅ Send token in headers
             }

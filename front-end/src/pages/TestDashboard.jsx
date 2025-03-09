@@ -22,7 +22,7 @@ function TestDashboard() {
        
 
         // ✅ Use dynamic API endpoint
-        const response = await axios.get(`http://localhost:4000/api/v2/${userLevel}/show-games`, {
+        const response = await axios.get(`https://pi-day-version-2.onrender.com/api/v2/${userLevel}/show-games`, {
           headers: {
             Authorization: `Bearer ${token}`, // ✅ Send token in headers
         }
