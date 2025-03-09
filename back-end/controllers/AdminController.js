@@ -1,6 +1,6 @@
 require("dotenv").config()
 const {Admin, Teacher, Attempt, Game} = require('../models');
-const bcrypt = require('bcrypt');
+const bcrypt = require('bcryptjs');
 const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET
 
