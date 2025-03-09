@@ -4,6 +4,8 @@ const adminRouter = require("./adminRoutes")
 const studentRouter = require("./studentRoute")
 const teacherRouter = require("./teacherRoute")
 
+
+
 router.use("/admin", adminRouter)
 
 router.use("/student", studentRouter)
