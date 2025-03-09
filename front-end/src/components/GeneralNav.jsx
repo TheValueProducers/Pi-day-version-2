@@ -56,21 +56,21 @@ function Header() {
       {/* Mobile Menu Options */}
         {menuOption &&
             <div id="mobile-options" className="w-full h-auto bg-[#8E74D0] absolute top-full flex flex-col text-sm font-semibold">
-            <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 flex item-center justify-center relative" onClick={ openDropDownMenu }> Home <span> <ChevronDownIcon className='size-4 absolute mt-2 ml-2  '/></span></Link >
+            <Link to="/teacher/home"  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 flex item-center justify-center relative" onClick={ openDropDownMenu }> Home <span> <ChevronDownIcon className='size-4 absolute mt-2 ml-2  '/></span></Link >
             
             {mobileMenuDropDown && 
             <div className='flex flex-col justify-center'>
-                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> About Pi Day</Link >
-                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Day Competition</Link >
-                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Fun Facts</Link >
-                <Link  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Our Team</Link >
+                <Link to="/home#about-pi-day"  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> About Pi Day</Link >
+                <Link to="/home#pi-day-comp"  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Day Competition</Link >
+                <Link to="/home#fun-facts"  className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Pi Fun Facts</Link >
+                <Link to="/home#our-team"   className="w-full flex-grow text-[#8E74D0] bg-[#ffffff] hover:bg-[#efefef] text-lg text-center py-4"> Our Team</Link >
             </div>
 
               }
 
             <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Pratice</Link >
             <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Contact</Link >
-            <Link  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Sign Up</Link >
+            <Link to = "/register"  className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> Sign Up</Link >
             
 
               
@@ -97,7 +97,7 @@ function Header() {
       onMouseLeave={closeDesktopDropDownMenu} 
     >
       {/* Home Link */}
-      <Link  className="text-black px-6 hover:text-[#886fc7] py-1 font-medium text-lg xl:text-xl">
+      <Link to="/teacher/home"  className="text-black px-6 hover:text-[#886fc7] py-1 font-medium text-lg xl:text-xl">
         Home
       </Link >
 
@@ -108,16 +108,16 @@ function Header() {
           onMouseEnter={openDesktopDropDownMenu} // Keeps dropdown open
           onMouseLeave={closeDesktopDropDownMenu} // Delayed close
         >
-          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition rounded-t-lg">
+          <Link to="/home#about-pi-day"  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition rounded-t-lg">
             About Pi Day
           </Link >
-          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          <Link to="/home#pi-day-comp" className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
             Pi Day Competition
           </Link >
-          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
+          <Link to="/home#fun-facts"  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition">
             Pi Fun Facts
           </Link >
-          <Link  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition rounded-b-lg">
+          <Link to="/home#our-team"  className="w-full text-black hover:bg-[#8E74D0] hover:text-white text-lg text-center py-3 transition rounded-b-lg">
             Our Team
           </Link >
         </div>
