@@ -16,6 +16,11 @@ import piHoliday from "../assets/pi-holiday.jpg";
 import { useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 
+import binh from '../assets/binh.jpg'
+import phat from '../assets/phat.jpg'
+import doanh from '../assets/doanh.jpg'
+import danh from '../assets/danh.jpg'
+import duong from '../assets/duong.jpg'
 
 import { motion, time, useScroll, useTransform  } from "framer-motion";
 import React, {useRef} from "react";
@@ -242,6 +247,7 @@ function Home() {
                 </div>
             </div>
                 
+
             </div>
 
             {/* Pi Day Competition Section */}
@@ -423,17 +429,25 @@ function Home() {
                     {/* Profile 1 */}
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gray-300 flex items-center justify-center">
-                            <img src="../assets/profile1.jpg" alt="Team Member 1" className="w-full h-full object-cover rounded-full" />
+                            <img src={binh} alt="Team Member 1" className="w-full h-full object-cover rounded-full" />
+                            </div>
+                        <div>
+                                <p className="text-lg  md:text-xl font-semibold text-center text-[#383A41]">Vuong Binh</p>
+                                <p className="text-sm md:text-lg font-light text-center text-[#383A41]">Front-End Dev</p>
+    
                         </div>
-                        <p className="text-lg sm:text-xl md:text-2xl font-semibold text-center text-[#383A41]">Member 1</p>
+                       
                     </div>
 
                     {/* Profile 2 */}
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gray-300 flex items-center justify-center">
-                            <img src="../assets/profile2.jpg" alt="Team Member 2" className="w-full h-full object-cover rounded-full" />
+                            <img src={phat} alt="Team Member 2" className="w-full h-full object-cover rounded-full" />
                         </div>
-                        <p className="text-lg sm:text-xl md:text-2xl font-semibold text-center text-[#383A41]">Member 2</p>
+                        <div>
+                                <p className="text-lg  md:text-xl font-semibold text-center text-[#383A41]">The Phat</p>
+                                <p className="text-sm md:text-lg font-light text-center text-[#383A41]">Back-End Dev</p>
+                        </div>
                     </div>
                 </div>
 
@@ -442,25 +456,34 @@ function Home() {
                     {/* Profile 3 */}
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gray-300 flex items-center justify-center">
-                            <img src="../assets/profile3.jpg" alt="Team Member 3" className="w-full h-full object-cover rounded-full" />
+                            <img src={duong} alt="Team Member 3" className="w-full h-full object-cover rounded-full" />
                         </div>
-                        <p className="text-lg sm:text-xl md:text-2xl font-semibold text-center text-[#383A41]">Member 3</p>
+                        <div>
+                                <p className="text-lg  md:text-xl font-semibold text-center text-[#383A41]">Duong</p>
+                                <p className="text-sm md:text-lg font-light text-center text-[#383A41]">UI/UX Designer</p>
+                        </div>
                     </div>
 
                     {/* Profile 4 */}
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gray-300 flex items-center justify-center">
-                            <img src="../assets/profile4.jpg" alt="Team Member 4" className="w-full h-full object-cover rounded-full" />
+                            <img src={doanh} alt="Team Member 4" className="w-full h-full object-cover rounded-full" />
                         </div>
-                        <p className="text-lg sm:text-xl md:text-2xl font-semibold text-center text-[#383A41]">Member 4</p>
+                        <div>
+                                <p className="text-lg  md:text-xl font-semibold text-center text-[#383A41]">Dang Doanh</p>
+                                <p className="text-sm md:text-lg font-light text-center text-[#383A41]">UI/UX Designer</p>
+                        </div>
                     </div>
 
                     {/* Profile 5 */}
                     <div className="flex flex-col items-center gap-4">
                         <div className="w-32 h-32 sm:w-40 sm:h-40 md:w-48 md:h-48 rounded-full bg-gray-300 flex items-center justify-center">
-                            <img src="../assets/profile5.jpg" alt="Team Member 5" className="w-full h-full object-cover rounded-full" />
+                            <img src={danh} alt="Team Member 5" className="w-full h-full object-cover rounded-full" />
                         </div>
-                        <p className="text-lg sm:text-xl md:text-2xl font-semibold text-center text-[#383A41]">Member 5</p>
+                        <div>
+                                <p className="text-lg  md:text-xl font-semibold text-center text-[#383A41]">Thanh Danh</p>
+                                <p className="text-sm md:text-lg font-light text-center text-[#383A41]">Junior Intern</p>
+                        </div>
                     </div>
                 </div>
             </div>
