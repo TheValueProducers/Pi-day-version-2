@@ -15,6 +15,16 @@ module.exports = {
         date_of_birth: new Date("2007-04-22"),
         createdAt: new Date(),
         updatedAt: new Date()
+      },
+      {
+        admin_id: uuidv4(),
+        username: "VuongBinh",
+        hashed_password: await bcrypt.hash("Bvistech", saltRounds),
+        full_name: "Nguyen Vuong Binh",
+        email: "binhv2007@gmail.com",
+        date_of_birth: new Date("2007-10-20"),
+        createdAt: new Date(),
+        updatedAt: new Date()
       }
     ]);
   },
