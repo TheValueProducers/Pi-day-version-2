@@ -94,7 +94,7 @@ function AdminNav() {
               <Link className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4" to="/admin/setting" > Setting</Link>
               <Link className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4 "  to="/admin/leaderboard"> Dashboard</Link>
 
-              <Link className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> My Account</Link>
+              <Link onClick={() => logOut()} className="w-full flex-grow text-white bg-[#8E74D0] hover:bg-[#886fc7] text-lg text-center py-4"> My Account</Link>
               
 
               
