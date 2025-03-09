@@ -9,7 +9,7 @@ module.exports = {
       {
         admin_id: uuidv4(),
         username: "ThePhat",
-        hashed_password: await bcrypt.hash("Sp4scldmcc.", saltRounds),
+        hashed_password: await bcrypt.hash("Bvistech2007", saltRounds),
         full_name: "Nghiem The Phat",
         email: "phatnghiemthe07@gmail.com",
         date_of_birth: new Date("2007-04-22"),
