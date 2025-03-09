@@ -1,5 +1,15 @@
 'use strict';
+
 require("dotenv").config()
+
+
+console.log("🔍 Checking Environment Variables:");
+console.log("NODE_ENV:", process.env.NODE_ENV);
+console.log("DATABASE_URL:", process.env.DATABASE_URL ? "✅ Exists" : "❌ Undefined");
+
+if (!process.env.DATABASE_URL) {
+  throw new Error("❌ DATABASE_URL is missing! Check Render environment variables.");
+}
 const fs = require('fs');
 const path = require('path');
 const Sequelize = require('sequelize');
