@@ -52,7 +52,7 @@ function TestTable() {
 
                 <div className="w-full flex flex-col items-center justify-center gap-8 px-6">
                         {/* Title */}
-                        <h2 className="font-semibold text-center text-3xl text-white  whitespace-nowrap">10 - Ma Pink</h2>
+                        <h2 className="font-semibold text-center text-3xl text-white  whitespace-nowrap">{className}</h2>
 
            
                 <div className="w-full overflow-y-auto max-h-96 border-[0] rounded-lg">
